@@ -1,26 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Courier New', monospace;
-  background: #0d1117;
-  color: #c9d1d9;
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f14;
+  color: #ffffff;
 }
 
 header {
-  background: #161b22;
-  padding: 20px;
   text-align: center;
-  border-bottom: 3px solid #39ff14;
+  padding: 30px 20px 10px;
 }
 
-h1 { color: #39ff14; font-size: 2.8rem; }
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #39ff14;
+}
+
+header p {
+  margin-top: 10px;
+  color: #c9d1d9;
+  font-size: 1.1rem;
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+}
 
 .hero {
   text-align: center;
-  padding: 40px 20px;
-  background: linear-gradient(#0d1117, #161b22);
+  margin-bottom: 30px;
+}
+
+.hero h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #39ff14;
+  color: #000;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+#terminal-section {
+  text-align: center;
+}
+
+#terminal-section h2 {
+  margin-bottom: 20px;
+}
+
+.terminal-wrapper {
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  height: 500px;
+  border: 3px solid #39ff14;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0d1117;
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.15);
 }
 
 #terminal {
-  box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.actions {
+  text-align: center;
+  margin: 15px 0 30px;
+}
+
+.reset-btn {
+  background: #ff5555;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .hero h2 {
+    font-size: 1.1rem;
+  }
+
+  .terminal-wrapper {
+    width: 95%;
+    height: 420px;
+  }
 }
