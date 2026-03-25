@@ -1,5 +1,5 @@
-// Enhanced fake filesystem (persists in memory during session)
-let fs = {
+// Persistent filesystem (saved in browser)
+let fs = JSON.parse(localStorage.getItem('linxeFS')) || {
   '~': {
     type: 'dir',
     children: {
@@ -34,9 +34,9 @@ const term = new Terminal({
   }
 });
 
-const fitAddon = new FitAddon.FitAddon();
-const webglAddon = new WebglAddon.WebglAddon();
-const searchAddon = new SearchAddon.SearchAddon();
+const fitAddon = new FitAddon();
+const webglAddon = new WebglAddon();
+const searchAddon = new SearchAddon();
 
 term.loadAddon(fitAddon);
 term.loadAddon(webglAddon);
@@ -46,10 +46,8 @@ const terminalDiv = document.getElementById('terminal');
 term.open(terminalDiv);
 fitAddon.fit();
 
-// Welcome
-term.writeln('\x1b[1;32mWelcome to Linxe Terminal Simulator\x1b[0m');
-term.writeln('A realistic Linux learning environment in your browser');
-term.writeln('Type \x1b[33mhelp\x1b[0m for commands. Files you create will persist during this session.');
+term.writeln('\x1b[1;32m✅ Linxe Terminal is now FIXED and READY!\x1b[0m');
+term.writeln('Your files are saved automatically (even after refresh)');
 term.writeln('─'.repeat(60));
 prompt();
 
@@ -66,11 +64,9 @@ term.onKey(({ key, domEvent }) => {
     if (currentLine.trim()) {
       commandHistory.unshift(currentLine);
       historyIndex = -1;
-      term.writeln(''); 
-      processCommand(currentLine);
-    } else {
       term.writeln('');
-    }
+      processCommand(currentLine);
+    } else term.writeln('');
     currentLine = '';
     prompt();
   } 
@@ -87,17 +83,8 @@ term.onKey(({ key, domEvent }) => {
     }
   } 
   else if (domEvent.key === 'ArrowDown') {
-    if (historyIndex > 0) {
-      historyIndex--;
-      replaceLine(commandHistory[historyIndex]);
-    } else {
-      historyIndex = -1;
-      replaceLine('');
-    }
-  } 
-  else if (domEvent.key === 'Tab') {
-    term.write('  '); // simple hint
-    term.writeln('\x1b[90m(Tab auto-complete coming soon...)\x1b[0m');
+    if (historyIndex > 0) { historyIndex--; replaceLine(commandHistory[historyIndex]); }
+    else { historyIndex = -1; replaceLine(''); }
   } 
   else if (printable) {
     currentLine += key;
@@ -106,16 +93,17 @@ term.onKey(({ key, domEvent }) => {
 });
 
 function replaceLine(newLine) {
-  while (currentLine.length > 0) {
-    term.write('\b \b');
-    currentLine = currentLine.slice(0, -1);
-  }
+  while (currentLine.length > 0) { term.write('\b \b'); currentLine = currentLine.slice(0, -1); }
   currentLine = newLine;
   term.write(currentLine);
 }
 
-function getDirObject(path) {
-  return fs[path] || null;
+function saveFS() {
+  localStorage.setItem('linxeFS', JSON.stringify(fs));
+}
+
+function getDirObject(dir) {
+  return fs[dir] || null;
 }
 
 function processCommand(cmd) {
@@ -125,107 +113,92 @@ function processCommand(cmd) {
 
   switch (command) {
     case 'help':
-      term.writeln('Available commands: help, ls, pwd, cd, touch, mkdir, rm, cat, tree, clear, echo, whoami, date');
+      term.writeln('Commands: help, ls, pwd, cd, touch, mkdir, rm, cat, tree, clear, echo, whoami, date');
       break;
-
     case 'ls':
       const dir = getDirObject(currentDir);
-      if (dir && dir.type === 'dir') {
-        Object.keys(dir.children).forEach(item => {
-          const isDir = dir.children[item].type === 'dir';
-          term.write(isDir ? `\x1b[34m${item}\x1b[0m  ` : `${item}  `);
-        });
-        term.writeln('');
-      }
+      if (dir) Object.keys(dir.children).forEach(item => {
+        const isDir = dir.children[item].type === 'dir';
+        term.write(isDir ? `\x1b[34m${item}\x1b[0m  ` : `${item}  `);
+      });
+      term.writeln('');
       break;
-
     case 'pwd':
       term.writeln(`/home/user${currentDir === '~' ? '' : '/' + currentDir}`);
       break;
-
     case 'cd':
-      if (!args[0] || args[0] === '~' || args[0] === '..') {
-        currentDir = '~';
-      } else if (getDirObject(args[0])) {
-        currentDir = args[0];
-      } else {
-        term.writeln(`cd: no such directory: ${args[0]}`);
-      }
+      if (!args[0] || args[0] === '~' || args[0] === '..') currentDir = '~';
+      else if (getDirObject(args[0])) currentDir = args[0];
+      else term.writeln(`cd: no such directory: ${args[0]}`);
       break;
-
     case 'touch':
       if (args[0]) {
-        const dir = getDirObject(currentDir);
-        if (dir) dir.children[args[0]] = { type: 'file', content: '' };
-        term.writeln(`Created empty file: ${args[0]}`);
+        const d = getDirObject(currentDir);
+        if (d) d.children[args[0]] = { type: 'file', content: '' };
+        term.writeln(`Created: ${args[0]}`);
+        saveFS();
       }
       break;
-
     case 'mkdir':
       if (args[0]) {
-        const dir = getDirObject(currentDir);
-        if (dir) dir.children[args[0]] = { type: 'dir', children: {} };
+        const d = getDirObject(currentDir);
+        if (d) d.children[args[0]] = { type: 'dir', children: {} };
         term.writeln(`Directory created: ${args[0]}`);
+        saveFS();
       }
       break;
-
     case 'cat':
       if (args[0]) {
-        const dir = getDirObject(currentDir);
-        if (dir && dir.children[args[0]] && dir.children[args[0]].type === 'file') {
-          term.writeln(dir.children[args[0]].content);
-        } else {
-          term.writeln(`cat: ${args[0]}: No such file`);
-        }
+        const d = getDirObject(currentDir);
+        if (d && d.children[args[0]]?.type === 'file') term.writeln(d.children[args[0]].content);
+        else term.writeln(`cat: ${args[0]}: No such file`);
       }
       break;
-
     case 'rm':
       if (args[0]) {
-        const dir = getDirObject(currentDir);
-        if (dir && dir.children[args[0]]) {
-          delete dir.children[args[0]];
+        const d = getDirObject(currentDir);
+        if (d && d.children[args[0]]) {
+          delete d.children[args[0]];
           term.writeln(`Removed: ${args[0]}`);
+          saveFS();
         }
       }
       break;
-
     case 'tree':
       term.writeln('.\n├── Documents\n│   └── notes.txt\n├── Downloads\n├── hello.txt\n└── secret.txt');
+      // (You can expand this later to be fully dynamic)
       break;
-
     case 'clear':
       term.clear();
       break;
-
     case 'echo':
       term.writeln(args.join(' '));
       break;
-
     case 'whoami':
       term.writeln('linux-newbie');
       break;
-
     case 'date':
       term.writeln(new Date().toString());
       break;
-
     default:
-      if (cmd.trim()) term.writeln(`bash: ${command}: command not found... type 'help'`);
+      if (cmd.trim()) term.writeln(`bash: ${command}: command not found — type 'help'`);
   }
 }
 
-// Lesson auto-type function
 window.runLesson = function(cmd) {
-  term.writeln(`\r\n\x1b[33mRunning lesson command:\x1b[0m ${cmd}`);
+  term.writeln(`\r\n\x1b[33m→ Running lesson:\x1b[0m ${cmd}`);
   currentLine = cmd;
   processCommand(cmd);
   currentLine = '';
   prompt();
 };
 
-// Resize handler
-window.addEventListener('resize', () => fitAddon.fit());
+window.resetTerminal = function() {
+  if (confirm('Reset everything? (files will be deleted)')) {
+    localStorage.removeItem('linxeFS');
+    location.reload();
+  }
+};
 
-// Initial fit
-setTimeout(() => fitAddon.fit(), 100);
+window.addEventListener('resize', () => fitAddon.fit());
+setTimeout(() => fitAddon.fit(), 200);
