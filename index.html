@@ -4,66 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Linxe - Learn Linux the Fun Way</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm/css/xterm.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>🐧 Linxe</h1>
-    <p>Master Linux commands — one realistic terminal at a time</p>
+    <p>Master Linux — Realistic Terminal + Interactive Lessons</p>
     <nav>
       <a href="#lessons">Lessons</a>
-      <a href="#terminal">Practice Terminal</a>
+      <a href="#terminal-section">Practice Terminal</a>
       <a href="#quiz">Quiz</a>
     </nav>
   </header>
 
   <main>
-    <!-- Hero (same as before) -->
     <section class="hero">
-      <h2>From Zero to Linux Hero</h2>
-      <button onclick="document.getElementById('terminal-section').scrollIntoView()">Start Practicing Now →</button>
+      <h2>From Zero to Linux Hero in the Browser</h2>
+      <button onclick="document.getElementById('terminal-section').scrollIntoView()">Open Realistic Terminal →</button>
     </section>
 
-    <!-- Lessons (same) -->
     <section id="lessons">
-      <h2>Lessons</h2>
+      <h2>Interactive Lessons (Click to auto-type into terminal)</h2>
       <div class="cards">
         <div class="card">
-          <h3>1. Navigation Basics</h3>
-          <p>Learn <code>pwd</code>, <code>ls</code>, <code>cd</code></p>
-          <button onclick="alert('Lesson 1 coming soon! Try the new terminal below.')">Start Lesson</button>
+          <h3>1. Navigation</h3>
+          <button onclick="runLesson('ls')">ls</button>
+          <button onclick="runLesson('pwd')">pwd</button>
+          <button onclick="runLesson('cd Documents')">cd Documents</button>
         </div>
         <div class="card">
           <h3>2. File Management</h3>
-          <p><code>touch</code>, <code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>rm</code></p>
+          <button onclick="runLesson('touch myfile.txt')">touch</button>
+          <button onclick="runLesson('mkdir project')">mkdir</button>
+          <button onclick="runLesson('ls')">ls again</button>
+          <button onclick="runLesson('cat hello.txt')">cat</button>
         </div>
       </div>
     </section>
 
-    <!-- Realistic Terminal -->
     <section id="terminal-section">
-      <h2>🖥️ Realistic Linux Terminal (Powered by xterm.js)</h2>
-      <div id="terminal" style="width: 90%; max-width: 900px; margin: 2rem auto; height: 500px; border: 2px solid #39ff14; border-radius: 8px; overflow: hidden;"></div>
-      <p class="hint">Try these commands: <strong>help</strong>, <strong>ls</strong>, <strong>pwd</strong>, <strong>whoami</strong>, <strong>date</strong>, <strong>clear</strong>, <strong>echo hello world</strong>, <strong>cd Documents</strong></p>
+      <h2>🖥️ Super Realistic Linux Terminal (xterm.js + WebGL)</h2>
+      <div id="terminal" style="width: 90%; max-width: 960px; margin: 2rem auto; height: 560px; border: 3px solid #39ff14; border-radius: 10px; overflow: hidden; box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);"></div>
+      <p class="hint">
+        Try: <strong>help</strong> • <strong>ls</strong> • <strong>touch test.txt</strong> • <strong>mkdir code</strong> • <strong>cat secret.txt</strong> • <strong>tree</strong> • <strong>clear</strong><br>
+        Use ↑↓ for history, Tab for hints, Ctrl+F to search output
+      </p>
     </section>
 
-    <!-- Quiz (same) -->
     <section id="quiz">
       <h2>Quick Quiz</h2>
-      <p>What command shows your current directory?</p>
-      <button onclick="alert('Correct! It\'s pwd')">pwd</button>
-      <button onclick="alert('Nope, try again')">ls</button>
+      <p>What command creates an empty file?</p>
+      <button onclick="alert('Correct! touch filename')">touch</button>
+      <button onclick="alert('Nope')">mkdir</button>
     </section>
   </main>
 
   <footer>
-    <p>Made with ❤️ for Linux newbies • Now with real xterm.js!</p>
+    <p>Linxe v2 — Built together with Ahmed • Pure frontend, no server needed</p>
   </footer>
 
-  <!-- xterm.js scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+  <!-- xterm.js + addons from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit/lib/xterm-addon-fit.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-webgl/lib/xterm-addon-webgl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-search/lib/xterm-addon-search.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
