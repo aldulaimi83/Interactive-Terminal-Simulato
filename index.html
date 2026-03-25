@@ -4,23 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linxe — Learn Linux Through Interactive Missions</title>
-
   <meta
     name="description"
     content="Linxe is an interactive Linux learning website where beginners practice commands through terminal missions."
   />
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.css"
-  />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
       <div class="brand">
-        <span class="brand-icon">🐧</span>
+        <div class="brand-icon">🐧</div>
         <div>
           <h1>Linxe</h1>
           <p>Learn Linux by doing</p>
@@ -34,9 +29,7 @@
         <a href="#about">Why I Built It</a>
       </nav>
 
-      <div class="nav-actions">
-        <button id="navFocusBtn" class="secondary">Open Lab</button>
-      </div>
+      <button id="openLabTopBtn" class="secondary">Open Lab</button>
     </div>
   </header>
 
@@ -47,14 +40,13 @@
           <div class="badge">Interactive Linux Learning Platform</div>
           <h2>Learn Linux Through Interactive Terminal Missions</h2>
           <p class="hero-text">
-            Linxe is a beginner-friendly Linux training website built to help
-            users learn by typing real commands, completing missions, and
-            building confidence step by step.
+            Linxe helps beginners learn Linux by practicing commands inside a terminal-style lab,
+            completing missions, and building confidence step by step.
           </p>
 
           <div class="hero-actions">
-            <button id="heroStartBtn">Start Practicing</button>
-            <a class="text-link" href="#lab">See the Interactive Lab</a>
+            <button id="startHeroBtn">Start Practicing</button>
+            <a href="#lab" class="text-link">See the Lab</a>
           </div>
 
           <div class="hero-stats">
@@ -64,7 +56,7 @@
             </div>
             <div class="stat-card">
               <strong>Mission Driven</strong>
-              <span>Practice with guided Linux tasks</span>
+              <span>Guided Linux tasks with hints</span>
             </div>
             <div class="stat-card">
               <strong>Hands-On</strong>
@@ -82,13 +74,13 @@
               <span class="window-title">linxe-preview</span>
             </div>
             <div class="preview-body">
-              <p><span class="prompt">student@linxe:~$</span> pwd</p>
-              <p>/home/student</p>
-              <p><span class="prompt">student@linxe:~$</span> ls</p>
-              <p>Documents &nbsp; Downloads &nbsp; hello.txt</p>
-              <p><span class="prompt">student@linxe:~$</span> cd Documents</p>
-              <p><span class="prompt">student@linxe:~/Documents$</span> mkdir projects</p>
-              <p><span class="success">Mission complete! +25 XP</span></p>
+              <div><span class="prompt">student@linxe:~$</span> pwd</div>
+              <div>/home/student</div>
+              <div><span class="prompt">student@linxe:~$</span> ls</div>
+              <div>Documents  Downloads  hello.txt</div>
+              <div><span class="prompt">student@linxe:~$</span> cd Documents</div>
+              <div><span class="prompt">student@linxe:~/Documents$</span> mkdir projects</div>
+              <div class="success">Mission complete! +25 XP</div>
             </div>
           </div>
         </div>
@@ -101,42 +93,26 @@
           <span class="eyebrow">Core Features</span>
           <h3>What makes Linxe useful</h3>
           <p>
-            Linxe is designed to make Linux learning feel practical,
-            structured, and less intimidating for beginners.
+            Linxe is built to make Linux learning practical, structured, and less intimidating.
           </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
             <h4>Interactive Terminal</h4>
-            <p>
-              Practice commands in a realistic terminal-style environment
-              instead of passively reading tutorials.
-            </p>
+            <p>Practice commands in a terminal-style environment instead of passively reading tutorials.</p>
           </article>
-
           <article class="feature-card">
             <h4>Mission-Based Learning</h4>
-            <p>
-              Each lesson gives you a clear task so you always know what to do
-              next.
-            </p>
+            <p>Every lesson gives you one clear task so you always know what to do next.</p>
           </article>
-
           <article class="feature-card">
             <h4>Progress Tracking</h4>
-            <p>
-              Earn XP, increase your level, and track completed missions as you
-              improve.
-            </p>
+            <p>Earn XP, level up, and track completed missions as you improve.</p>
           </article>
-
           <article class="feature-card">
-            <h4>Beginner-Focused Design</h4>
-            <p>
-              Built for new Linux learners who want a simpler way to build real
-              command-line confidence.
-            </p>
+            <h4>Beginner Focus</h4>
+            <p>Designed for new learners who want a simpler path into Linux basics.</p>
           </article>
         </div>
       </div>
@@ -147,43 +123,29 @@
         <div class="section-heading">
           <span class="eyebrow">Learning Tracks</span>
           <h3>Start simple, then build real skills</h3>
-          <p>
-            These tracks show how Linxe can grow into a complete Linux learning
-            platform.
-          </p>
+          <p>These tracks show how Linxe can grow into a full Linux learning platform.</p>
         </div>
 
         <div class="track-grid">
           <article class="track-card active">
-            <div class="track-top">
-              <span class="track-tag">Available Now</span>
-              <h4>Beginner Terminal</h4>
-            </div>
-            <p>Start with core commands like pwd, ls, cd, mkdir, touch, and cat.</p>
+            <div class="track-tag">Available Now</div>
+            <h4>Beginner Terminal</h4>
+            <p>Start with pwd, ls, cd, mkdir, touch, cat, echo, and clear.</p>
           </article>
-
           <article class="track-card">
-            <div class="track-top">
-              <span class="track-tag muted">Planned</span>
-              <h4>File Navigation</h4>
-            </div>
-            <p>Move between folders, understand paths, and work more naturally in Linux.</p>
+            <div class="track-tag muted">Planned</div>
+            <h4>File Navigation</h4>
+            <p>Understand paths, folders, and moving around the system naturally.</p>
           </article>
-
           <article class="track-card">
-            <div class="track-top">
-              <span class="track-tag muted">Planned</span>
-              <h4>File Management</h4>
-            </div>
-            <p>Learn how to copy, move, rename, and remove files and directories.</p>
+            <div class="track-tag muted">Planned</div>
+            <h4>File Management</h4>
+            <p>Learn copy, move, rename, and delete workflows.</p>
           </article>
-
           <article class="track-card">
-            <div class="track-top">
-              <span class="track-tag muted">Planned</span>
-              <h4>Real Practice Scenarios</h4>
-            </div>
-            <p>Apply Linux skills through job-style tasks and guided challenges.</p>
+            <div class="track-tag muted">Planned</div>
+            <h4>Real Practice Scenarios</h4>
+            <p>Apply Linux commands through guided job-style tasks.</p>
           </article>
         </div>
       </div>
@@ -194,43 +156,38 @@
         <div class="how-card">
           <span class="eyebrow">How It Works</span>
           <h3>Learn Linux in 3 steps</h3>
-          <div class="steps">
-            <div class="step">
-              <div class="step-number">1</div>
-              <div>
-                <h4>Read the mission</h4>
-                <p>Each mission gives you one clear Linux task to complete.</p>
-              </div>
-            </div>
 
-            <div class="step">
-              <div class="step-number">2</div>
-              <div>
-                <h4>Type the command</h4>
-                <p>Use the terminal to solve the task just like a real beginner lab.</p>
-              </div>
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>
+              <h4>Read the mission</h4>
+              <p>Each mission gives you one clear task to complete.</p>
             </div>
+          </div>
 
-            <div class="step">
-              <div class="step-number">3</div>
-              <div>
-                <h4>Earn XP and continue</h4>
-                <p>Complete missions, level up, and move through the learning path.</p>
-              </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              <h4>Type the command</h4>
+              <p>Use the lab terminal just like a beginner Linux practice environment.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div>
+              <h4>Earn XP and continue</h4>
+              <p>Complete missions, level up, and keep moving through the path.</p>
             </div>
           </div>
         </div>
 
-        <div class="how-card quote-card">
+        <div class="how-card">
           <span class="eyebrow">Product Vision</span>
           <h3>Why this matters</h3>
           <p>
-            Many people want to learn Linux, but traditional tutorials feel too
-            passive or too technical at the start.
-          </p>
-          <p>
-            Linxe is meant to make Linux training more visual, more guided, and
-            more hands-on.
+            Many Linux tutorials are too passive at the start.
+            Linxe is meant to make Linux training more guided, visual, and hands-on.
           </p>
         </div>
       </div>
@@ -240,11 +197,8 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Interactive Lab</span>
-          <h3>Try the Linux practice lab</h3>
-          <p>
-            This is the core experience: terminal practice with guided missions,
-            hints, and progress tracking.
-          </p>
+          <h3>Practice Linux commands here</h3>
+          <p>This lab works directly in the browser with guided missions and progress tracking.</p>
         </div>
 
         <div class="workspace">
@@ -253,9 +207,17 @@
               <span class="dot red"></span>
               <span class="dot yellow"></span>
               <span class="dot green"></span>
-              <span class="panel-title">linxe-terminal</span>
+              <span class="panel-title">linxe-lab</span>
             </div>
-            <div id="terminal"></div>
+
+            <div id="terminalWrap">
+              <div id="terminalOutput"></div>
+
+              <div class="terminal-input-row">
+                <span id="terminalPrompt">student@linxe:~$</span>
+                <input id="terminalInput" type="text" autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
           </div>
 
           <aside class="mission-panel">
@@ -268,12 +230,12 @@
 
             <div class="mission-card">
               <h3>Current Mission</h3>
-              <p id="missionTitle">Loading mission...</p>
+              <p id="missionTitle">Mission 1: Check your location</p>
             </div>
 
             <div class="mission-card">
               <h3>What to do</h3>
-              <p id="missionDescription">Loading...</p>
+              <p id="missionDescription">Type the command that shows your current directory.</p>
             </div>
 
             <div class="mission-card">
@@ -297,9 +259,7 @@
 
             <div class="mission-card">
               <h3>Commands</h3>
-              <p class="small">
-                help, ls, pwd, cd, mkdir, touch, cat, echo, clear
-              </p>
+              <p class="small">help, ls, pwd, cd, mkdir, touch, cat, echo, clear</p>
             </div>
           </aside>
         </div>
@@ -312,14 +272,8 @@
           <span class="eyebrow">Why I Built This</span>
           <h3>A portfolio project with product potential</h3>
           <p>
-            I built Linxe as a hands-on Linux learning concept that is simple
-            enough for beginners but structured enough to feel like a real
-            product.
-          </p>
-          <p>
-            The goal is to keep improving it into a stronger training platform
-            with more commands, more lessons, better scenarios, and a cleaner
-            learning experience.
+            I built Linxe as a hands-on Linux learning concept that is simple enough for beginners
+            but structured enough to feel like a real product.
           </p>
         </div>
 
@@ -327,11 +281,11 @@
           <span class="eyebrow">Next Steps</span>
           <h3>Where I want to take it</h3>
           <ul class="next-list">
-            <li>Add more Linux commands like rm, cp, mv, and grep</li>
-            <li>Build lesson unlocks and badges</li>
+            <li>Add rm, cp, mv, and grep</li>
+            <li>Build badges and lesson unlocks</li>
             <li>Add challenge mode and timed practice</li>
             <li>Create more realistic Linux scenarios</li>
-            <li>Turn it into a stronger portfolio and startup-style product</li>
+            <li>Turn it into a stronger portfolio product</li>
           </ul>
         </div>
       </div>
@@ -351,8 +305,6 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/addons/fit/fit.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
