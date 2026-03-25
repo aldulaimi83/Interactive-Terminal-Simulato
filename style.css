@@ -2,26 +2,25 @@ body {
   font-family: 'Courier New', monospace;
   background: #0d1117;
   color: #c9d1d9;
+  margin: 0;
+  padding: 0;
 }
 
-header { background: #161b22; padding: 1rem; text-align: center; border-bottom: 3px solid #39ff14; }
-h1 { color: #39ff14; font-size: 2.5rem; }
-
-.hero { text-align: center; padding: 5rem 1rem; background: linear-gradient(#0d1117, #161b22); }
-
-.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-.card {
+header {
   background: #161b22;
-  padding: 1.8rem;
-  border: 1px solid #30363d;
-  border-radius: 10px;
-  width: 340px;
+  padding: 20px;
   text-align: center;
+  border-bottom: 3px solid #39ff14;
 }
 
-.hint {
+h1 { color: #39ff14; font-size: 2.8rem; }
+
+.hero {
   text-align: center;
-  color: #8b949e;
-  font-size: 0.95rem;
-  margin: 1rem 0 3rem;
+  padding: 40px 20px;
+  background: linear-gradient(#0d1117, #161b22);
+}
+
+#terminal {
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
 }
