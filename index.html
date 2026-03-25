@@ -25,7 +25,7 @@
     </section>
 
     <section id="lessons">
-      <h2>Interactive Lessons (Click to auto-type into terminal)</h2>
+      <h2>Interactive Lessons (click to auto-type)</h2>
       <div class="cards">
         <div class="card">
           <h3>1. Navigation</h3>
@@ -37,7 +37,7 @@
           <h3>2. File Management</h3>
           <button onclick="runLesson('touch myfile.txt')">touch</button>
           <button onclick="runLesson('mkdir project')">mkdir</button>
-          <button onclick="runLesson('ls')">ls again</button>
+          <button onclick="runLesson('ls')">ls</button>
           <button onclick="runLesson('cat hello.txt')">cat</button>
         </div>
       </div>
@@ -46,9 +46,16 @@
     <section id="terminal-section">
       <h2>🖥️ Super Realistic Linux Terminal (xterm.js + WebGL)</h2>
       <div id="terminal" style="width: 90%; max-width: 960px; margin: 2rem auto; height: 560px; border: 3px solid #39ff14; border-radius: 10px; overflow: hidden; box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);"></div>
+      
+      <div style="text-align:center; margin: 1rem 0;">
+        <button onclick="resetTerminal()" style="padding:10px 20px; background:#ff5555; color:white; border:none; border-radius:6px; cursor:pointer;">
+          🔄 Reset Terminal & Files
+        </button>
+      </div>
+
       <p class="hint">
-        Try: <strong>help</strong> • <strong>ls</strong> • <strong>touch test.txt</strong> • <strong>mkdir code</strong> • <strong>cat secret.txt</strong> • <strong>tree</strong> • <strong>clear</strong><br>
-        Use ↑↓ for history, Tab for hints, Ctrl+F to search output
+        Try: <strong>help</strong> • <strong>touch test.txt</strong> • <strong>mkdir code</strong> • <strong>cat secret.txt</strong> • <strong>tree</strong> • <strong>clear</strong><br>
+        Your files are saved automatically!
       </p>
     </section>
 
@@ -61,10 +68,9 @@
   </main>
 
   <footer>
-    <p>Linxe v2 — Built together with Ahmed • Pure frontend, no server needed</p>
+    <p>Linxe v2.1 — Fixed & Improved for Ahmed • Files now persist!</p>
   </footer>
 
-  <!-- xterm.js + addons from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm/lib/xterm.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit/lib/xterm-addon-fit.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-webgl/lib/xterm-addon-webgl.js"></script>
