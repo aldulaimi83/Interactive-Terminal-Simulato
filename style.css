@@ -26,39 +26,10 @@ nav a {
   background: linear-gradient(#0d1117, #161b22);
 }
 
-.terminal {
-  background: #0d1117;
-  border: 2px solid #39ff14;
-  width: 90%;
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  height: 400px;
-  overflow-y: auto;
-  border-radius: 8px;
-  font-size: 1.1rem;
-}
-
-#output {
-  white-space: pre-wrap;
-}
-
-.prompt {
-  display: flex;
-  margin-top: 8px;
-}
-
-.user { color: #ff79c6; }
-.path { color: #8be9fd; }
-
-#cmdInput {
-  background: transparent;
-  border: none;
-  color: #c9d1d9;
-  font-family: inherit;
-  font-size: inherit;
-  flex: 1;
-  outline: none;
+.hint { 
+  text-align: center; 
+  color: #8b949e; 
+  margin-top: 1rem;
 }
 
 .card {
@@ -75,5 +46,3 @@ nav a {
   flex-wrap: wrap;
   justify-content: center;
 }
-
-.hint { text-align: center; color: #8b949e; }
