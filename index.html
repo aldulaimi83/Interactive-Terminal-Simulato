@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linxe - Learn Linux the Fun Way</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.css">
-  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
@@ -16,15 +20,18 @@
   <main>
     <section class="hero">
       <h2>Click inside the terminal below and start typing!</h2>
-      <button onclick="document.getElementById('terminal').focus()">Focus Terminal</button>
+      <button id="focusBtn" type="button">Focus Terminal</button>
     </section>
 
     <section id="terminal-section">
       <h2>🖥️ Realistic Linux Terminal</h2>
-      <div id="terminal" style="width: 90%; max-width: 900px; margin: 20px auto; height: 500px; border: 3px solid #39ff14; border-radius: 8px;"></div>
-      
-      <div style="text-align:center; margin:15px;">
-        <button onclick="resetTerminal()" style="padding:10px 20px; background:#ff5555; color:white; border:none; border-radius:6px;">
+
+      <div class="terminal-wrapper">
+        <div id="terminal"></div>
+      </div>
+
+      <div class="actions">
+        <button id="resetBtn" type="button" class="reset-btn">
           Reset Terminal
         </button>
       </div>
