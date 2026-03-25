@@ -4,9 +4,9 @@
 
 :root {
   --bg: #08111f;
-  --bg-2: #0c1728;
+  --bg2: #0c1728;
   --panel: #121d30;
-  --panel-2: #0f1726;
+  --panel2: #0f1726;
   --border: #24324d;
   --text: #e8eef7;
   --muted: #98a8be;
@@ -94,11 +94,6 @@ a {
   color: white;
 }
 
-.nav-actions {
-  display: flex;
-  gap: 10px;
-}
-
 .hero {
   padding: 72px 0 34px;
 }
@@ -111,15 +106,20 @@ a {
 }
 
 .badge,
-.eyebrow {
+.eyebrow,
+.track-tag {
   display: inline-block;
   padding: 8px 12px;
   border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.badge,
+.eyebrow {
   background: rgba(57, 255, 20, 0.08);
   border: 1px solid rgba(57, 255, 20, 0.18);
   color: #d7ffd1;
-  font-size: 0.85rem;
-  font-weight: bold;
   margin-bottom: 16px;
 }
 
@@ -158,15 +158,21 @@ a {
 .how-card,
 .about-card,
 .mission-card,
-.preview-window {
+.preview-window,
+.terminal-panel {
   background: rgba(15, 24, 40, 0.88);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
-.stat-card {
-  padding: 16px;
+.stat-card,
+.feature-card,
+.track-card,
+.how-card,
+.about-card,
+.mission-card {
+  padding: 22px;
 }
 
 .stat-card strong {
@@ -174,19 +180,19 @@ a {
   margin-bottom: 8px;
 }
 
-.stat-card span {
+.stat-card span,
+.feature-card p,
+.track-card p,
+.how-card p,
+.about-card p,
+.mission-card p,
+.small,
+.next-list li {
   color: var(--muted);
-  font-size: 0.94rem;
-  line-height: 1.5;
-}
-
-.hero-preview {
-  display: flex;
-  justify-content: center;
+  line-height: 1.75;
 }
 
 .preview-window {
-  width: 100%;
   overflow: hidden;
 }
 
@@ -196,7 +202,7 @@ a {
   align-items: center;
   gap: 8px;
   padding: 14px 16px;
-  background: var(--panel-2);
+  background: var(--panel2);
   border-bottom: 1px solid var(--border);
 }
 
@@ -257,50 +263,12 @@ a {
   gap: 18px;
 }
 
-.feature-card,
-.track-card,
-.how-card,
-.about-card,
-.mission-card {
-  padding: 22px;
-}
-
-.feature-card h4,
-.track-card h4,
-.how-card h3,
-.about-card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-}
-
-.feature-card p,
-.track-card p,
-.how-card p,
-.about-card p,
-.mission-card p,
-.small,
-.next-list li {
-  color: var(--muted);
-  line-height: 1.75;
-}
-
-.track-top {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
 .track-tag {
-  display: inline-block;
-  width: fit-content;
-  padding: 7px 10px;
-  border-radius: 999px;
   background: rgba(57, 255, 20, 0.1);
   border: 1px solid rgba(57, 255, 20, 0.18);
   color: #d5ffd6;
-  font-size: 0.78rem;
-  font-weight: bold;
+  width: fit-content;
+  margin-bottom: 12px;
 }
 
 .track-tag.muted {
@@ -320,17 +288,11 @@ a {
   gap: 18px;
 }
 
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 10px;
-}
-
 .step {
   display: flex;
   gap: 14px;
   align-items: flex-start;
+  margin-top: 16px;
 }
 
 .step-number {
@@ -357,19 +319,49 @@ a {
   align-items: start;
 }
 
-.terminal-panel {
-  background: rgba(15, 24, 40, 0.88);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
+#terminalWrap {
+  width: 100%;
+  min-height: 620px;
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: Consolas, Monaco, monospace;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
 }
 
-#terminal {
-  width: 100%;
-  height: 620px;
-  padding: 12px;
-  background: #0d1117;
+#terminalOutput {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.terminal-line {
+  margin-bottom: 4px;
+}
+
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+#terminalPrompt {
+  color: #7ee787;
+  white-space: nowrap;
+}
+
+#terminalInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #c9d1d9;
+  font: inherit;
 }
 
 .mission-panel {
@@ -428,17 +420,9 @@ a {
   border-radius: 50%;
 }
 
-.red {
-  background: var(--red);
-}
-
-.yellow {
-  background: var(--yellow);
-}
-
-.green {
-  background: #34d399;
-}
+.red { background: var(--red); }
+.yellow { background: var(--yellow); }
+.green { background: #34d399; }
 
 button,
 .text-link {
@@ -514,17 +498,12 @@ button.danger {
     justify-content: center;
   }
 
-  .nav-actions {
-    width: 100%;
-    justify-content: center;
-  }
-
   .section {
     padding: 26px 0 34px;
   }
 
-  #terminal {
-    height: 500px;
+  #terminalWrap {
+    min-height: 480px;
   }
 
   .footer-wrap {
