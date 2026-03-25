@@ -1,48 +1,27 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Courier New', monospace;
   background: #0d1117;
   color: #c9d1d9;
-  line-height: 1.6;
 }
 
-header {
-  background: #161b22;
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 2px solid #39ff14;
-}
+header { background: #161b22; padding: 1rem; text-align: center; border-bottom: 3px solid #39ff14; }
+h1 { color: #39ff14; font-size: 2.5rem; }
 
-h1 { color: #39ff14; }
-nav a {
-  color: #58a6ff;
-  margin: 0 1rem;
-  text-decoration: none;
-}
+.hero { text-align: center; padding: 5rem 1rem; background: linear-gradient(#0d1117, #161b22); }
 
-.hero {
-  text-align: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(#0d1117, #161b22);
-}
-
-.hint { 
-  text-align: center; 
-  color: #8b949e; 
-  margin-top: 1rem;
-}
-
+.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
 .card {
   background: #161b22;
-  padding: 1.5rem;
-  margin: 1rem;
+  padding: 1.8rem;
   border: 1px solid #30363d;
-  border-radius: 8px;
-  width: 300px;
+  border-radius: 10px;
+  width: 340px;
+  text-align: center;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.hint {
+  text-align: center;
+  color: #8b949e;
+  font-size: 0.95rem;
+  margin: 1rem 0 3rem;
 }
