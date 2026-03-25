@@ -1,7 +1,12 @@
-const terminalContainer = document.getElementById("terminal");
+const STORAGE_KEY = "linxe_v4_progress";
+const HOME_PATH = "/home/student";
 
-const navFocusBtn = document.getElementById("navFocusBtn");
-const heroStartBtn = document.getElementById("heroStartBtn");
+const terminalOutput = document.getElementById("terminalOutput");
+const terminalInput = document.getElementById("terminalInput");
+const terminalPrompt = document.getElementById("terminalPrompt");
+
+const openLabTopBtn = document.getElementById("openLabTopBtn");
+const startHeroBtn = document.getElementById("startHeroBtn");
 const focusBtn = document.getElementById("focusBtn");
 const resetLabBtn = document.getElementById("resetLabBtn");
 const nextMissionBtn = document.getElementById("nextMissionBtn");
@@ -17,26 +22,6 @@ const xpValueEl = document.getElementById("xpValue");
 const levelValueEl = document.getElementById("levelValue");
 const missionCountEl = document.getElementById("missionCount");
 
-const term = new Terminal({
-  cursorBlink: true,
-  fontSize: 16,
-  convertEol: true,
-  theme: {
-    background: "#0d1117",
-    foreground: "#c9d1d9",
-    cursor: "#39ff14"
-  }
-});
-
-const fitAddon = new FitAddon.FitAddon();
-term.loadAddon(fitAddon);
-term.open(terminalContainer);
-fitAddon.fit();
-
-const STORAGE_KEY = "linxe_v3_progress";
-const HOME_PATH = "/home/student";
-
-let currentLine = "";
 let currentPath = HOME_PATH;
 
 let userProgress = {
@@ -49,46 +34,46 @@ let userProgress = {
 const missions = [
   {
     title: "Mission 1: Check your location",
-    description: "Show your current directory.",
-    hint: "Type: pwd",
+    description: "Type the command that shows your current directory.",
+    hint: "Use: pwd",
     reward: 20,
     validate: (raw) => raw.trim() === "pwd"
   },
   {
-    title: "Mission 2: List your files",
-    description: "List the files and folders in your current directory.",
-    hint: "Type: ls",
+    title: "Mission 2: List files",
+    description: "Show the files and folders in your current directory.",
+    hint: "Use: ls",
     reward: 20,
     validate: (raw) => raw.trim() === "ls"
   },
   {
     title: "Mission 3: Open Documents",
     description: "Move into the Documents folder.",
-    hint: "Type: cd Documents",
+    hint: "Use: cd Documents",
     reward: 25,
     validate: (raw) =>
       raw.trim() === "cd Documents" && currentPath === `${HOME_PATH}/Documents`
   },
   {
-    title: "Mission 4: Create a project folder",
+    title: "Mission 4: Create a folder",
     description: "Inside Documents, create a folder named projects.",
-    hint: "Type: mkdir projects",
+    hint: "Use: mkdir projects",
     reward: 25,
     validate: (raw) =>
       raw.trim() === "mkdir projects" && existsInCurrentDir("projects", "dir")
   },
   {
-    title: "Mission 5: Create a notes file",
+    title: "Mission 5: Create a file",
     description: "Inside Documents, create a file named notes.txt.",
-    hint: "Type: touch notes.txt",
+    hint: "Use: touch notes.txt",
     reward: 30,
     validate: (raw) =>
       raw.trim() === "touch notes.txt" && existsInCurrentDir("notes.txt", "file")
   },
   {
     title: "Mission 6: Read a file",
-    description: "Read the contents of welcome.txt inside Documents.",
-    hint: "Type: cat welcome.txt",
+    description: "Read the contents of welcome.txt.",
+    hint: "Use: cat welcome.txt",
     reward: 35,
     validate: (raw) => raw.trim() === "cat welcome.txt"
   }
@@ -131,8 +116,32 @@ function createInitialFileSystem() {
 
 let fileSystem = createInitialFileSystem();
 
+function printLine(text = "") {
+  const line = document.createElement("div");
+  line.className = "terminal-line";
+  line.textContent = text;
+  terminalOutput.appendChild(line);
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function printPromptLine(command) {
+  printLine(`${getPrompt()} ${command}`);
+}
+
+function getPrompt() {
+  return `student@linxe:${currentPath.replace(HOME_PATH, "~") || "~"}$`;
+}
+
+function updatePrompt() {
+  terminalPrompt.textContent = getPrompt();
+}
+
 function calculateLevel(xp) {
   return Math.floor(xp / 50) + 1;
+}
+
+function saveProgress() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(userProgress));
 }
 
 function loadProgress() {
@@ -147,13 +156,9 @@ function loadProgress() {
       missionIndex: parsed.missionIndex || 0,
       completed: Array.isArray(parsed.completed) ? parsed.completed : []
     };
-  } catch (error) {
-    console.error("Could not load progress", error);
+  } catch (e) {
+    console.error("Could not load progress", e);
   }
-}
-
-function saveProgress() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(userProgress));
 }
 
 function updateProgressUI() {
@@ -174,8 +179,8 @@ function updateMissionUI() {
 
   if (!mission) {
     missionTitleEl.textContent = "All missions completed";
-    missionDescriptionEl.textContent = "You finished the current beginner mission set.";
-    missionHintEl.textContent = "Reset progress to start again or keep practicing freely.";
+    missionDescriptionEl.textContent = "You finished the current beginner path.";
+    missionHintEl.textContent = "Reset progress or keep practicing freely.";
     missionStatusEl.textContent = "All missions complete ✅";
     return;
   }
@@ -210,28 +215,20 @@ function normalizePath(path) {
 
 function resolvePath(inputPath) {
   if (!inputPath || inputPath === "~") return HOME_PATH;
-
-  if (inputPath.startsWith("/")) {
-    return normalizePath(inputPath);
-  }
-
+  if (inputPath.startsWith("/")) return normalizePath(inputPath);
   if (inputPath === ".") return currentPath;
-
   return normalizePath(`${currentPath}/${inputPath}`);
 }
 
 function getNodeByPath(path) {
   const normalized = normalizePath(path);
-
   if (normalized === "/") return fileSystem;
 
   const parts = normalized.split("/").filter(Boolean);
   let node = fileSystem;
 
   for (const part of parts) {
-    if (!node.children || !node.children[part]) {
-      return null;
-    }
+    if (!node.children || !node.children[part]) return null;
     node = node.children[part];
   }
 
@@ -250,158 +247,11 @@ function existsInCurrentDir(name, type) {
   return node.type === type;
 }
 
-function promptPath() {
-  return currentPath.replace(HOME_PATH, "~");
-}
-
-function writePrompt() {
-  term.write(`student@linxe:${promptPath()}$ `);
-}
-
-function printWelcome() {
-  term.writeln("\x1b[1;32mWelcome to Linxe V3\x1b[0m");
-  term.writeln("Learn Linux through interactive missions.");
-  term.writeln("Type \x1b[1;36mhelp\x1b[0m to see available commands.");
-  term.writeln("--------------------------------------------------");
-  writePrompt();
-}
-
-function processCommand(input) {
-  const trimmed = input.trim();
-
-  if (!trimmed) {
-    return;
-  }
-
-  const parts = trimmed.split(" ");
-  const command = parts[0].toLowerCase();
-  const args = parts.slice(1);
-
-  switch (command) {
-    case "help":
-      term.writeln("Available commands:");
-      term.writeln("  help               Show command list");
-      term.writeln("  ls                 List files and folders");
-      term.writeln("  pwd                Show current directory");
-      term.writeln("  cd <folder>        Change directory");
-      term.writeln("  mkdir <name>       Create a new folder");
-      term.writeln("  touch <name>       Create a new file");
-      term.writeln("  cat <file>         Read a file");
-      term.writeln("  echo <text>        Print text");
-      term.writeln("  clear              Clear the terminal");
-      break;
-
-    case "ls": {
-      const dir = getCurrentDirectoryNode();
-      if (!dir || dir.type !== "dir") {
-        term.writeln("Error: current directory not found.");
-        break;
-      }
-
-      const names = Object.keys(dir.children);
-      term.writeln(names.length ? names.join("  ") : "(empty)");
-      break;
-    }
-
-    case "pwd":
-      term.writeln(currentPath);
-      break;
-
-    case "cd": {
-      const target = args.join(" ").trim() || "~";
-      const resolved = resolvePath(target);
-      const node = getNodeByPath(resolved);
-
-      if (!node) {
-        term.writeln(`cd: no such file or directory: ${target}`);
-      } else if (node.type !== "dir") {
-        term.writeln(`cd: not a directory: ${target}`);
-      } else {
-        currentPath = resolved;
-      }
-      break;
-    }
-
-    case "mkdir": {
-      const name = args.join(" ").trim();
-      if (!name) {
-        term.writeln("mkdir: missing folder name");
-        break;
-      }
-
-      const dir = getCurrentDirectoryNode();
-
-      if (dir.children[name]) {
-        term.writeln(`mkdir: cannot create directory '${name}': File exists`);
-      } else {
-        dir.children[name] = {
-          type: "dir",
-          children: {}
-        };
-      }
-      break;
-    }
-
-    case "touch": {
-      const name = args.join(" ").trim();
-      if (!name) {
-        term.writeln("touch: missing file name");
-        break;
-      }
-
-      const dir = getCurrentDirectoryNode();
-
-      if (!dir.children[name]) {
-        dir.children[name] = {
-          type: "file",
-          content: ""
-        };
-      }
-      break;
-    }
-
-    case "cat": {
-      const name = args.join(" ").trim();
-      if (!name) {
-        term.writeln("cat: missing file name");
-        break;
-      }
-
-      const dir = getCurrentDirectoryNode();
-      const node = dir.children[name];
-
-      if (!node) {
-        term.writeln(`cat: ${name}: No such file`);
-      } else if (node.type !== "file") {
-        term.writeln(`cat: ${name}: Is a directory`);
-      } else {
-        term.writeln(node.content || "(empty file)");
-      }
-      break;
-    }
-
-    case "echo":
-      term.writeln(args.join(" "));
-      break;
-
-    case "clear":
-      term.clear();
-      break;
-
-    default:
-      term.writeln(`Command not found: ${command}. Type 'help'`);
-      break;
-  }
-
-  checkMissionCompletion(input);
-}
-
 function checkMissionCompletion(rawCommand) {
   const mission = getCurrentMission();
   if (!mission) return;
 
   const completed = mission.validate(rawCommand);
-
   if (!completed) return;
 
   if (!userProgress.completed.includes(userProgress.missionIndex)) {
@@ -411,27 +261,154 @@ function checkMissionCompletion(rawCommand) {
     updateProgressUI();
 
     missionStatusEl.textContent = `Completed! +${mission.reward} XP ✅`;
-
-    term.writeln("");
-    term.writeln(`\x1b[1;32mMission complete! +${mission.reward} XP\x1b[0m`);
+    printLine("");
+    printLine(`Mission complete! +${mission.reward} XP`);
 
     const nextMission = getCurrentMission();
     if (nextMission) {
-      term.writeln(`Next: ${nextMission.title}`);
+      printLine(`Next: ${nextMission.title}`);
     } else {
-      term.writeln("\x1b[1;32mYou completed all beginner missions!\x1b[0m");
+      printLine("You completed all beginner missions!");
     }
 
     updateMissionUI();
   }
 }
 
+function processCommand(input) {
+  const trimmed = input.trim();
+  if (!trimmed) return;
+
+  printPromptLine(trimmed);
+
+  const parts = trimmed.split(" ");
+  const command = parts[0].toLowerCase();
+  const args = parts.slice(1);
+
+  switch (command) {
+    case "help":
+      printLine("Available commands:");
+      printLine("help");
+      printLine("ls");
+      printLine("pwd");
+      printLine("cd <folder>");
+      printLine("mkdir <name>");
+      printLine("touch <name>");
+      printLine("cat <file>");
+      printLine("echo <text>");
+      printLine("clear");
+      break;
+
+    case "ls": {
+      const dir = getCurrentDirectoryNode();
+      if (!dir || dir.type !== "dir") {
+        printLine("Error: current directory not found.");
+      } else {
+        const names = Object.keys(dir.children);
+        printLine(names.length ? names.join("  ") : "(empty)");
+      }
+      break;
+    }
+
+    case "pwd":
+      printLine(currentPath);
+      break;
+
+    case "cd": {
+      const target = args.join(" ").trim() || "~";
+      const resolved = resolvePath(target);
+      const node = getNodeByPath(resolved);
+
+      if (!node) {
+        printLine(`cd: no such file or directory: ${target}`);
+      } else if (node.type !== "dir") {
+        printLine(`cd: not a directory: ${target}`);
+      } else {
+        currentPath = resolved;
+        updatePrompt();
+      }
+      break;
+    }
+
+    case "mkdir": {
+      const name = args.join(" ").trim();
+      if (!name) {
+        printLine("mkdir: missing folder name");
+        break;
+      }
+
+      const dir = getCurrentDirectoryNode();
+      if (dir.children[name]) {
+        printLine(`mkdir: cannot create directory '${name}': File exists`);
+      } else {
+        dir.children[name] = { type: "dir", children: {} };
+      }
+      break;
+    }
+
+    case "touch": {
+      const name = args.join(" ").trim();
+      if (!name) {
+        printLine("touch: missing file name");
+        break;
+      }
+
+      const dir = getCurrentDirectoryNode();
+      if (!dir.children[name]) {
+        dir.children[name] = { type: "file", content: "" };
+      }
+      break;
+    }
+
+    case "cat": {
+      const name = args.join(" ").trim();
+      if (!name) {
+        printLine("cat: missing file name");
+        break;
+      }
+
+      const dir = getCurrentDirectoryNode();
+      const node = dir.children[name];
+
+      if (!node) {
+        printLine(`cat: ${name}: No such file`);
+      } else if (node.type !== "file") {
+        printLine(`cat: ${name}: Is a directory`);
+      } else {
+        printLine(node.content || "(empty file)");
+      }
+      break;
+    }
+
+    case "echo":
+      printLine(args.join(" "));
+      break;
+
+    case "clear":
+      terminalOutput.innerHTML = "";
+      break;
+
+    default:
+      printLine(`Command not found: ${command}. Type 'help'`);
+      break;
+  }
+
+  checkMissionCompletion(trimmed);
+}
+
+function initTerminal() {
+  terminalOutput.innerHTML = "";
+  printLine("Welcome to Linxe");
+  printLine("Learn Linux through interactive missions.");
+  printLine("Type help to see available commands.");
+  printLine("--------------------------------------------------");
+  updatePrompt();
+}
+
 function resetLab() {
   fileSystem = createInitialFileSystem();
   currentPath = HOME_PATH;
-  currentLine = "";
-  term.clear();
-  printWelcome();
+  initTerminal();
   missionStatusEl.textContent = "Lab reset. Progress kept.";
 }
 
@@ -449,13 +426,10 @@ function resetAllProgress() {
 
   fileSystem = createInitialFileSystem();
   currentPath = HOME_PATH;
-  currentLine = "";
 
   updateProgressUI();
   updateMissionUI();
-
-  term.clear();
-  printWelcome();
+  initTerminal();
 }
 
 function goNextMission() {
@@ -473,61 +447,30 @@ function goNextMission() {
 
 function scrollToLabAndFocus() {
   document.getElementById("lab").scrollIntoView({ behavior: "smooth", block: "start" });
-  setTimeout(() => {
-    fitAddon.fit();
-    term.focus();
-  }, 500);
+  setTimeout(() => terminalInput.focus(), 350);
 }
 
-term.onData((data) => {
-  switch (data) {
-    case "\r":
-      term.writeln("");
-      processCommand(currentLine);
-      currentLine = "";
-      writePrompt();
-      break;
-
-    case "\u007F":
-      if (currentLine.length > 0) {
-        currentLine = currentLine.slice(0, -1);
-        term.write("\b \b");
-      }
-      break;
-
-    default:
-      if (data >= " ") {
-        currentLine += data;
-        term.write(data);
-      }
-      break;
+terminalInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const value = terminalInput.value;
+    terminalInput.value = "";
+    processCommand(value);
   }
 });
 
-[navFocusBtn, heroStartBtn, focusBtn].forEach((button) => {
-  if (!button) return;
-  button.addEventListener("click", scrollToLabAndFocus);
+document.getElementById("terminalWrap").addEventListener("click", () => {
+  terminalInput.focus();
 });
 
+openLabTopBtn.addEventListener("click", scrollToLabAndFocus);
+startHeroBtn.addEventListener("click", scrollToLabAndFocus);
+focusBtn.addEventListener("click", () => terminalInput.focus());
 resetLabBtn.addEventListener("click", resetLab);
 nextMissionBtn.addEventListener("click", goNextMission);
 hintBtn.addEventListener("click", showHint);
 resetProgressBtn.addEventListener("click", resetAllProgress);
 
-terminalContainer.addEventListener("click", () => {
-  term.focus();
-});
-
-window.addEventListener("resize", () => {
-  fitAddon.fit();
-});
-
 loadProgress();
 updateProgressUI();
 updateMissionUI();
-printWelcome();
-
-setTimeout(() => {
-  fitAddon.fit();
-  term.focus();
-}, 300);
+initTerminal();
