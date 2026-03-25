@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linxe - Learn Linux the Fun Way</title>
+  <title>Linxe V2 - Learn Linux by Doing</title>
 
   <link
     rel="stylesheet"
@@ -12,31 +12,103 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🐧 Linxe</h1>
-    <p>Master Linux — Realistic Terminal</p>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>Click inside the terminal below and start typing!</h2>
-      <button id="focusBtn" type="button">Focus Terminal</button>
-    </section>
-
-    <section id="terminal-section">
-      <h2>🖥️ Realistic Linux Terminal</h2>
-
-      <div class="terminal-wrapper">
-        <div id="terminal"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>🐧 Linxe</h1>
+        <p>Learn Linux by doing</p>
       </div>
 
-      <div class="actions">
-        <button id="resetBtn" type="button" class="reset-btn">
-          Reset Terminal
-        </button>
+      <div class="sidebar-card">
+        <h3>Learning Path</h3>
+        <ul class="lesson-list">
+          <li class="active">Beginner Terminal</li>
+          <li>Navigation Basics</li>
+          <li>Files & Folders</li>
+          <li>Reading Files</li>
+          <li>Linux Practice</li>
+        </ul>
       </div>
-    </section>
-  </main>
+
+      <div class="sidebar-card">
+        <h3>Your Progress</h3>
+        <div class="stat"><span>XP</span><strong id="xpValue">0</strong></div>
+        <div class="stat"><span>Level</span><strong id="levelValue">1</strong></div>
+        <div class="stat"><span>Missions</span><strong id="missionCount">0 / 5</strong></div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Commands</h3>
+        <p class="small">
+          help, ls, pwd, cd, mkdir, touch, cat, echo, clear
+        </p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h2>Interactive Linux Lab</h2>
+          <p>Train like a real beginner Linux user</p>
+        </div>
+        <div class="topbar-buttons">
+          <button id="focusBtn">Focus Terminal</button>
+          <button id="resetProgressBtn" class="danger">Reset Progress</button>
+        </div>
+      </header>
+
+      <section class="hero-panel">
+        <div class="hero-text">
+          <h3>Welcome to Linxe V2</h3>
+          <p>
+            Complete missions in the terminal to learn Linux step by step.
+            Start with the current mission on the right.
+          </p>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="terminal-panel">
+          <div class="panel-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="panel-title">linxe-terminal</span>
+          </div>
+          <div id="terminal"></div>
+        </div>
+
+        <div class="mission-panel">
+          <div class="mission-card">
+            <h3>Current Mission</h3>
+            <p id="missionTitle">Loading mission...</p>
+          </div>
+
+          <div class="mission-card">
+            <h3>What to do</h3>
+            <p id="missionDescription">Loading...</p>
+          </div>
+
+          <div class="mission-card">
+            <h3>Hint</h3>
+            <p id="missionHint">Use the Linux commands you learned.</p>
+            <button id="hintBtn" class="secondary">Show Hint</button>
+          </div>
+
+          <div class="mission-card success-box">
+            <h3>Status</h3>
+            <p id="missionStatus">Mission not completed yet.</p>
+          </div>
+
+          <div class="mission-card">
+            <h3>Controls</h3>
+            <button id="nextMissionBtn">Next Mission</button>
+            <button id="resetLabBtn" class="secondary">Reset Lab</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/addons/fit/fit.min.js"></script>
