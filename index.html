@@ -4,77 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Linxe - Learn Linux the Fun Way</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>🐧 Linxe</h1>
-    <p>Master Linux — Realistic Terminal + Interactive Lessons</p>
-    <nav>
-      <a href="#lessons">Lessons</a>
-      <a href="#terminal-section">Practice Terminal</a>
-      <a href="#quiz">Quiz</a>
-    </nav>
+    <p>Master Linux — Realistic Terminal</p>
   </header>
 
   <main>
     <section class="hero">
-      <h2>From Zero to Linux Hero in the Browser</h2>
-      <button onclick="document.getElementById('terminal-section').scrollIntoView()">Open Realistic Terminal →</button>
-    </section>
-
-    <section id="lessons">
-      <h2>Interactive Lessons (click to auto-type)</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>1. Navigation</h3>
-          <button onclick="runLesson('ls')">ls</button>
-          <button onclick="runLesson('pwd')">pwd</button>
-          <button onclick="runLesson('cd Documents')">cd Documents</button>
-        </div>
-        <div class="card">
-          <h3>2. File Management</h3>
-          <button onclick="runLesson('touch myfile.txt')">touch</button>
-          <button onclick="runLesson('mkdir project')">mkdir</button>
-          <button onclick="runLesson('ls')">ls</button>
-          <button onclick="runLesson('cat hello.txt')">cat</button>
-        </div>
-      </div>
+      <h2>Click inside the terminal below and start typing!</h2>
+      <button onclick="document.getElementById('terminal').focus()">Focus Terminal</button>
     </section>
 
     <section id="terminal-section">
-      <h2>🖥️ Super Realistic Linux Terminal (xterm.js + WebGL)</h2>
-      <div id="terminal" style="width: 90%; max-width: 960px; margin: 2rem auto; height: 560px; border: 3px solid #39ff14; border-radius: 10px; overflow: hidden; box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);"></div>
+      <h2>🖥️ Realistic Linux Terminal</h2>
+      <div id="terminal" style="width: 90%; max-width: 900px; margin: 20px auto; height: 500px; border: 3px solid #39ff14; border-radius: 8px;"></div>
       
-      <div style="text-align:center; margin: 1rem 0;">
-        <button onclick="resetTerminal()" style="padding:10px 20px; background:#ff5555; color:white; border:none; border-radius:6px; cursor:pointer;">
-          🔄 Reset Terminal & Files
+      <div style="text-align:center; margin:15px;">
+        <button onclick="resetTerminal()" style="padding:10px 20px; background:#ff5555; color:white; border:none; border-radius:6px;">
+          Reset Terminal
         </button>
       </div>
-
-      <p class="hint">
-        Try: <strong>help</strong> • <strong>touch test.txt</strong> • <strong>mkdir code</strong> • <strong>cat secret.txt</strong> • <strong>tree</strong> • <strong>clear</strong><br>
-        Your files are saved automatically!
-      </p>
-    </section>
-
-    <section id="quiz">
-      <h2>Quick Quiz</h2>
-      <p>What command creates an empty file?</p>
-      <button onclick="alert('Correct! touch filename')">touch</button>
-      <button onclick="alert('Nope')">mkdir</button>
     </section>
   </main>
 
-  <footer>
-    <p>Linxe v2.1 — Fixed & Improved for Ahmed • Files now persist!</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm/lib/xterm.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit/lib/xterm-addon-fit.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-webgl/lib/xterm-addon-webgl.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-search/lib/xterm-addon-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/addons/fit/fit.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
