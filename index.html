@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Linxe - Learn Linux the Fun Way</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>🐧 Linxe</h1>
-    <p>Master Linux commands — one terminal at a time</p>
+    <p>Master Linux commands — one realistic terminal at a time</p>
     <nav>
       <a href="#lessons">Lessons</a>
       <a href="#terminal">Practice Terminal</a>
@@ -18,43 +19,36 @@
   </header>
 
   <main>
-    <!-- Hero -->
+    <!-- Hero (same as before) -->
     <section class="hero">
       <h2>From Zero to Linux Hero</h2>
-      <button onclick="document.getElementById('terminal').scrollIntoView()">Start Practicing Now →</button>
+      <button onclick="document.getElementById('terminal-section').scrollIntoView()">Start Practicing Now →</button>
     </section>
 
-    <!-- Lessons -->
+    <!-- Lessons (same) -->
     <section id="lessons">
       <h2>Lessons</h2>
       <div class="cards">
         <div class="card">
           <h3>1. Navigation Basics</h3>
           <p>Learn <code>pwd</code>, <code>ls</code>, <code>cd</code></p>
-          <button onclick="alert('Lesson 1 coming soon — for now try the terminal!')">Start Lesson</button>
+          <button onclick="alert('Lesson 1 coming soon! Try the new terminal below.')">Start Lesson</button>
         </div>
         <div class="card">
           <h3>2. File Management</h3>
           <p><code>touch</code>, <code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>rm</code></p>
         </div>
-        <!-- Add more cards as we expand -->
       </div>
     </section>
 
-    <!-- Interactive Terminal -->
-    <section id="terminal">
-      <h2>🖥️ Practice Terminal (Simulated)</h2>
-      <div id="term" class="terminal">
-        <div id="output"></div>
-        <div class="prompt">
-          <span class="user">user@linxe</span>:<span class="path">~</span>$ 
-          <input type="text" id="cmdInput" autofocus autocomplete="off">
-        </div>
-      </div>
-      <p class="hint">Try commands: <strong>help</strong>, <strong>ls</strong>, <strong>pwd</strong>, <strong>whoami</strong>, <strong>date</strong>, <strong>clear</strong></p>
+    <!-- Realistic Terminal -->
+    <section id="terminal-section">
+      <h2>🖥️ Realistic Linux Terminal (Powered by xterm.js)</h2>
+      <div id="terminal" style="width: 90%; max-width: 900px; margin: 2rem auto; height: 500px; border: 2px solid #39ff14; border-radius: 8px; overflow: hidden;"></div>
+      <p class="hint">Try these commands: <strong>help</strong>, <strong>ls</strong>, <strong>pwd</strong>, <strong>whoami</strong>, <strong>date</strong>, <strong>clear</strong>, <strong>echo hello world</strong>, <strong>cd Documents</strong></p>
     </section>
 
-    <!-- Simple Quiz -->
+    <!-- Quiz (same) -->
     <section id="quiz">
       <h2>Quick Quiz</h2>
       <p>What command shows your current directory?</p>
@@ -64,9 +58,12 @@
   </main>
 
   <footer>
-    <p>Made with ❤️ for Linux newbies • Expand this however you want!</p>
+    <p>Made with ❤️ for Linux newbies • Now with real xterm.js!</p>
   </footer>
 
+  <!-- xterm.js scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
