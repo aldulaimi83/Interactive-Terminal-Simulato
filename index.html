@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linxe V6 — Learn Linux Through Interactive Missions</title>
+  <title>Linxe V7 — Learn Linux Through Interactive Missions</title>
   <meta
     name="description"
-    content="Linxe is an interactive Linux learning website where beginners practice commands through missions, lessons, and command guides."
+    content="Linxe is an interactive Linux learning website where beginners practice commands through missions, lessons, quizzes, and a built-in command guide."
   />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -25,6 +25,7 @@
         <a href="#features">Features</a>
         <a href="#tracks">Tracks</a>
         <a href="#lab">Lab</a>
+        <a href="#challenge">Challenge</a>
         <a href="#command-guide">Command Guide</a>
         <a href="#about">About</a>
       </nav>
@@ -40,27 +41,28 @@
           <div class="badge">Interactive Linux Learning Platform</div>
           <h2>Learn Linux Through Interactive Terminal Missions</h2>
           <p class="hero-text">
-            Linxe helps beginners learn Linux with hands-on terminal practice,
-            guided lessons, command explanations, and mission-based learning.
+            Linxe V7 helps beginners learn Linux with guided missions,
+            locked lesson paths, quizzes, timed challenges, command guides,
+            and a terminal-style practice lab.
           </p>
 
           <div class="hero-actions">
             <button id="startHeroBtn">Start Practicing</button>
-            <a href="#command-guide" class="text-link">View Command Guide</a>
+            <a href="#challenge" class="text-link">Try Challenge Mode</a>
           </div>
 
           <div class="hero-stats">
             <div class="stat-card">
-              <strong>More Commands</strong>
-              <span>Practice Linux basics, files, search, hidden files, and permissions</span>
+              <strong>Structured Lessons</strong>
+              <span>Lessons unlock as learners progress</span>
             </div>
             <div class="stat-card">
-              <strong>Lesson Flow</strong>
-              <span>Structured missions grouped into lessons</span>
+              <strong>Practice + Quiz</strong>
+              <span>Train with commands, then test knowledge</span>
             </div>
             <div class="stat-card">
-              <strong>Built-In Guide</strong>
-              <span>Mini man-style command explanations for each command</span>
+              <strong>Portfolio Ready</strong>
+              <span>Feels more like a real learning product</span>
             </div>
           </div>
         </div>
@@ -76,11 +78,11 @@
             <div class="preview-body">
               <div><span class="prompt">student@linxe:~$</span> ls -a</div>
               <div>.bashrc  .secret  Documents  Downloads  hello.txt</div>
-              <div><span class="prompt">student@linxe:~/Documents$</span> chmod +x script.sh</div>
-              <div>Permissions updated for script.sh</div>
+              <div><span class="prompt">student@linxe:~/Documents$</span> nano notes.txt</div>
+              <div>[ nano mode ] Type text, then save with :wq</div>
               <div><span class="prompt">student@linxe:~/Documents$</span> man grep</div>
               <div>Search for text in a file</div>
-              <div class="success">Mission complete! +35 XP</div>
+              <div class="success">Lesson unlocked! ✅</div>
             </div>
           </div>
         </div>
@@ -91,29 +93,29 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Core Features</span>
-          <h3>What makes Linxe better now</h3>
+          <h3>What makes V7 stronger</h3>
           <p>
-            Linxe is becoming a real learning product with guided labs, lessons,
-            and built-in command help.
+            Linxe V7 goes beyond a basic terminal demo and feels much more like
+            a learning platform.
           </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
             <h4>Interactive Terminal</h4>
-            <p>Practice commands in a browser terminal with realistic feedback.</p>
+            <p>Practice commands with feedback in a browser-based terminal lab.</p>
           </article>
           <article class="feature-card">
-            <h4>Lesson-Based Missions</h4>
-            <p>Progress through structured tasks instead of random commands.</p>
+            <h4>Locked Lessons</h4>
+            <p>Progress through Basics, Navigation, Files, and Search in order.</p>
           </article>
           <article class="feature-card">
-            <h4>Command Guide</h4>
-            <p>Each command has a mini explanation, syntax, and example.</p>
+            <h4>Quiz + Challenge</h4>
+            <p>Test knowledge with quizzes and timed challenge missions.</p>
           </article>
           <article class="feature-card">
-            <h4>Progress and Badges</h4>
-            <p>Track XP, level, missions, and unlocked learning stages.</p>
+            <h4>Built-In Guide</h4>
+            <p>Use the command guide or type man inside the terminal.</p>
           </article>
         </div>
       </div>
@@ -123,31 +125,31 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Learning Tracks</span>
-          <h3>Structured beginner path</h3>
-          <p>Linxe V6 teaches Linux in a cleaner, more complete way.</p>
+          <h3>Step-by-step beginner Linux path</h3>
+          <p>Each track becomes available as the learner completes missions.</p>
         </div>
 
-        <div class="track-grid">
+        <div id="lessonTrackGrid" class="track-grid">
           <article class="track-card active">
             <div class="track-tag">Unlocked</div>
             <h4>Lesson 1 — Basics</h4>
             <p>pwd, whoami, date, echo, clear, history</p>
           </article>
 
-          <article class="track-card active">
-            <div class="track-tag">Unlocked</div>
+          <article class="track-card locked-track">
+            <div class="track-tag muted">Locked</div>
             <h4>Lesson 2 — Navigation</h4>
-            <p>ls, ls -a, cd, cd .., absolute and relative paths</p>
+            <p>ls, ls -a, cd, relative paths, hidden files</p>
           </article>
 
-          <article class="track-card active">
-            <div class="track-tag">Unlocked</div>
+          <article class="track-card locked-track">
+            <div class="track-tag muted">Locked</div>
             <h4>Lesson 3 — Files</h4>
-            <p>touch, cat, cp, mv, rm, mkdir, rmdir</p>
+            <p>touch, cat, cp, mv, rm, mkdir, rmdir, nano</p>
           </article>
 
-          <article class="track-card active">
-            <div class="track-tag">Unlocked</div>
+          <article class="track-card locked-track">
+            <div class="track-tag muted">Locked</div>
             <h4>Lesson 4 — Search & Permissions</h4>
             <p>head, tail, grep, find, chmod, man</p>
           </article>
@@ -160,7 +162,7 @@
         <div class="section-heading">
           <span class="eyebrow">Interactive Lab</span>
           <h3>Practice Linux commands here</h3>
-          <p>This lab works in the browser and now includes a command guide and more missions.</p>
+          <p>The terminal now supports lessons, missions, history, nano mode, and built-in help.</p>
         </div>
 
         <div class="workspace">
@@ -187,7 +189,7 @@
               <h3>Your Progress</h3>
               <div class="progress-stat"><span>XP</span><strong id="xpValue">0</strong></div>
               <div class="progress-stat"><span>Level</span><strong id="levelValue">1</strong></div>
-              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 18</strong></div>
+              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 20</strong></div>
             </div>
 
             <div class="mission-card">
@@ -223,6 +225,7 @@
                 <span class="badge-pill locked">Navigation</span>
                 <span class="badge-pill locked">Files</span>
                 <span class="badge-pill locked">Search</span>
+                <span class="badge-pill locked">Quiz</span>
               </div>
             </div>
 
@@ -238,14 +241,63 @@
       </div>
     </section>
 
+    <section id="challenge" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Challenge Mode</span>
+          <h3>Timed Linux practice</h3>
+          <p>Start a timed challenge and solve a random command task before the timer ends.</p>
+        </div>
+
+        <div class="challenge-grid">
+          <article class="challenge-card">
+            <h4>Current Challenge</h4>
+            <p id="challengeText">Press start to get a challenge.</p>
+          </article>
+
+          <article class="challenge-card">
+            <h4>Timer</h4>
+            <p id="challengeTimer" class="big-value">60s</p>
+          </article>
+
+          <article class="challenge-card">
+            <h4>Result</h4>
+            <p id="challengeStatus">Challenge not started.</p>
+          </article>
+        </div>
+
+        <div class="challenge-actions">
+          <button id="startChallengeBtn">Start Challenge</button>
+          <button id="stopChallengeBtn" class="secondary">Stop Challenge</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section alt-section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Quiz Mode</span>
+          <h3>Quick Linux knowledge check</h3>
+          <p>Answer a short quiz to test what you learned from the lab.</p>
+        </div>
+
+        <div class="quiz-card">
+          <h4 id="quizQuestion">Loading quiz...</h4>
+          <div id="quizOptions" class="quiz-options"></div>
+          <p id="quizStatus" class="quiz-status">Pick an answer.</p>
+          <div class="quiz-actions">
+            <button id="nextQuizBtn" class="secondary">Next Question</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="command-guide" class="section">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Command Guide</span>
           <h3>Mini man page for each command</h3>
-          <p>
-            This section gives learners quick command descriptions, syntax, and examples.
-          </p>
+          <p>Search any command to see its description, syntax, and example.</p>
         </div>
 
         <div class="guide-search-wrap">
@@ -257,9 +309,7 @@
           />
         </div>
 
-        <div id="commandGuideGrid" class="guide-grid">
-          <!-- Filled by script -->
-        </div>
+        <div id="commandGuideGrid" class="guide-grid"></div>
       </div>
     </section>
 
@@ -269,20 +319,20 @@
           <span class="eyebrow">Why I Built This</span>
           <h3>A portfolio project with product potential</h3>
           <p>
-            I built Linxe to turn Linux learning into something more hands-on,
-            more visual, and easier for beginners to use.
+            I built Linxe to make Linux learning feel more hands-on, more
+            beginner-friendly, and more like a real interactive education product.
           </p>
         </div>
 
         <div class="about-card">
-          <span class="eyebrow">Next Steps</span>
-          <h3>Where I want to take it</h3>
+          <span class="eyebrow">What V7 adds</span>
+          <h3>More product, less demo</h3>
           <ul class="next-list">
-            <li>Add nano-style editing mode</li>
-            <li>Add quizzes and challenge mode</li>
-            <li>Add lesson locking by progress</li>
-            <li>Add more realistic scripting tasks</li>
-            <li>Turn it into a stronger education product</li>
+            <li>Locked lesson progression</li>
+            <li>Quiz mode</li>
+            <li>Challenge mode with timer</li>
+            <li>Nano-style editing simulation</li>
+            <li>Command guide and man support</li>
           </ul>
         </div>
       </div>
@@ -297,6 +347,7 @@
       </div>
       <div class="footer-links">
         <a href="#lab">Try the Lab</a>
+        <a href="#challenge">Challenge Mode</a>
         <a href="#command-guide">Command Guide</a>
       </div>
     </div>
