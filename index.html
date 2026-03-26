@@ -8,7 +8,6 @@
     name="description"
     content="Linxe is an interactive Linux learning website where beginners practice commands through terminal missions."
   />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -51,12 +50,12 @@
 
           <div class="hero-stats">
             <div class="stat-card">
-              <strong>Beginner Friendly</strong>
-              <span>Simple command-by-command learning</span>
+              <strong>More Commands</strong>
+              <span>Practice real Linux basics beyond only ls and cd</span>
             </div>
             <div class="stat-card">
-              <strong>Mission Driven</strong>
-              <span>Guided Linux tasks with hints</span>
+              <strong>More Missions</strong>
+              <span>Guided learning path with 15 tasks</span>
             </div>
             <div class="stat-card">
               <strong>Hands-On</strong>
@@ -76,11 +75,11 @@
             <div class="preview-body">
               <div><span class="prompt">student@linxe:~$</span> pwd</div>
               <div>/home/student</div>
-              <div><span class="prompt">student@linxe:~$</span> ls</div>
-              <div>Documents  Downloads  hello.txt</div>
-              <div><span class="prompt">student@linxe:~$</span> cd Documents</div>
-              <div><span class="prompt">student@linxe:~/Documents$</span> mkdir projects</div>
-              <div class="success">Mission complete! +25 XP</div>
+              <div><span class="prompt">student@linxe:~$</span> whoami</div>
+              <div>student</div>
+              <div><span class="prompt">student@linxe:~/Documents$</span> grep Linux welcome.txt</div>
+              <div>Welcome to Linxe. Linux practice starts here.</div>
+              <div class="success">Mission complete! +30 XP</div>
             </div>
           </div>
         </div>
@@ -111,8 +110,8 @@
             <p>Earn XP, level up, and track completed missions as you improve.</p>
           </article>
           <article class="feature-card">
-            <h4>Beginner Focus</h4>
-            <p>Designed for new learners who want a simpler path into Linux basics.</p>
+            <h4>More Linux Basics</h4>
+            <p>Now includes file management, search commands, and command history.</p>
           </article>
         </div>
       </div>
@@ -123,72 +122,30 @@
         <div class="section-heading">
           <span class="eyebrow">Learning Tracks</span>
           <h3>Start simple, then build real skills</h3>
-          <p>These tracks show how Linxe can grow into a full Linux learning platform.</p>
+          <p>These tracks turn Linxe into a stronger Linux training product.</p>
         </div>
 
         <div class="track-grid">
           <article class="track-card active">
             <div class="track-tag">Available Now</div>
-            <h4>Beginner Terminal</h4>
-            <p>Start with pwd, ls, cd, mkdir, touch, cat, echo, and clear.</p>
+            <h4>Basics</h4>
+            <p>pwd, ls, whoami, date, clear, echo, help.</p>
           </article>
-          <article class="track-card">
-            <div class="track-tag muted">Planned</div>
-            <h4>File Navigation</h4>
-            <p>Understand paths, folders, and moving around the system naturally.</p>
+          <article class="track-card active">
+            <div class="track-tag">Available Now</div>
+            <h4>Navigation</h4>
+            <p>cd, cd .., relative and absolute paths.</p>
           </article>
-          <article class="track-card">
-            <div class="track-tag muted">Planned</div>
-            <h4>File Management</h4>
-            <p>Learn copy, move, rename, and delete workflows.</p>
+          <article class="track-card active">
+            <div class="track-tag">Available Now</div>
+            <h4>Files & Folders</h4>
+            <p>mkdir, touch, cat, cp, mv, rm, rmdir.</p>
           </article>
-          <article class="track-card">
-            <div class="track-tag muted">Planned</div>
-            <h4>Real Practice Scenarios</h4>
-            <p>Apply Linux commands through guided job-style tasks.</p>
+          <article class="track-card active">
+            <div class="track-tag">Available Now</div>
+            <h4>Search & Text</h4>
+            <p>grep, find, head, tail, history.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container how-grid">
-        <div class="how-card">
-          <span class="eyebrow">How It Works</span>
-          <h3>Learn Linux in 3 steps</h3>
-
-          <div class="step">
-            <div class="step-number">1</div>
-            <div>
-              <h4>Read the mission</h4>
-              <p>Each mission gives you one clear task to complete.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">2</div>
-            <div>
-              <h4>Type the command</h4>
-              <p>Use the lab terminal just like a beginner Linux practice environment.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">3</div>
-            <div>
-              <h4>Earn XP and continue</h4>
-              <p>Complete missions, level up, and keep moving through the path.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="how-card">
-          <span class="eyebrow">Product Vision</span>
-          <h3>Why this matters</h3>
-          <p>
-            Many Linux tutorials are too passive at the start.
-            Linxe is meant to make Linux training more guided, visual, and hands-on.
-          </p>
         </div>
       </div>
     </section>
@@ -225,17 +182,22 @@
               <h3>Your Progress</h3>
               <div class="progress-stat"><span>XP</span><strong id="xpValue">0</strong></div>
               <div class="progress-stat"><span>Level</span><strong id="levelValue">1</strong></div>
-              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 6</strong></div>
+              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 15</strong></div>
+            </div>
+
+            <div class="mission-card">
+              <h3>Current Lesson</h3>
+              <p id="lessonTitle">Lesson 1: Basics</p>
             </div>
 
             <div class="mission-card">
               <h3>Current Mission</h3>
-              <p id="missionTitle">Mission 1: Check your location</p>
+              <p id="missionTitle">Loading...</p>
             </div>
 
             <div class="mission-card">
               <h3>What to do</h3>
-              <p id="missionDescription">Type the command that shows your current directory.</p>
+              <p id="missionDescription">Loading...</p>
             </div>
 
             <div class="mission-card">
@@ -259,7 +221,9 @@
 
             <div class="mission-card">
               <h3>Commands</h3>
-              <p class="small">help, ls, pwd, cd, mkdir, touch, cat, echo, clear</p>
+              <p class="small">
+                help, ls, pwd, whoami, date, echo, clear, cd, mkdir, touch, cat, rm, cp, mv, rmdir, head, tail, grep, find, history
+              </p>
             </div>
           </aside>
         </div>
@@ -281,10 +245,10 @@
           <span class="eyebrow">Next Steps</span>
           <h3>Where I want to take it</h3>
           <ul class="next-list">
-            <li>Add rm, cp, mv, and grep</li>
-            <li>Build badges and lesson unlocks</li>
-            <li>Add challenge mode and timed practice</li>
-            <li>Create more realistic Linux scenarios</li>
+            <li>Add permissions and chmod lessons</li>
+            <li>Add lesson locking and badges</li>
+            <li>Add quizzes and challenge mode</li>
+            <li>Add better terminal autocomplete</li>
             <li>Turn it into a stronger portfolio product</li>
           </ul>
         </div>
