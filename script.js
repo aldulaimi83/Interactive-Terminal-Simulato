@@ -1,4 +1,4 @@
-const STORAGE_KEY = "linxe_v5_progress";
+const STORAGE_KEY = "linxe_v6_progress";
 const HOME_PATH = "/home/student";
 
 const terminalOutput = document.getElementById("terminalOutput");
@@ -12,6 +12,9 @@ const resetLabBtn = document.getElementById("resetLabBtn");
 const nextMissionBtn = document.getElementById("nextMissionBtn");
 const hintBtn = document.getElementById("hintBtn");
 const resetProgressBtn = document.getElementById("resetProgressBtn");
+const commandSearch = document.getElementById("commandSearch");
+const commandGuideGrid = document.getElementById("commandGuideGrid");
+const badgeList = document.getElementById("badgeList");
 
 const lessonTitleEl = document.getElementById("lessonTitle");
 const missionTitleEl = document.getElementById("missionTitle");
@@ -34,10 +37,167 @@ let userProgress = {
   completed: []
 };
 
+const commandDocs = [
+  {
+    name: "pwd",
+    description: "Show the current directory path.",
+    syntax: "pwd",
+    example: "pwd",
+    lesson: "Basics"
+  },
+  {
+    name: "whoami",
+    description: "Show the current username.",
+    syntax: "whoami",
+    example: "whoami",
+    lesson: "Basics"
+  },
+  {
+    name: "date",
+    description: "Show the current date and time.",
+    syntax: "date",
+    example: "date",
+    lesson: "Basics"
+  },
+  {
+    name: "echo",
+    description: "Print text to the terminal.",
+    syntax: "echo <text>",
+    example: "echo hello",
+    lesson: "Basics"
+  },
+  {
+    name: "clear",
+    description: "Clear the terminal output.",
+    syntax: "clear",
+    example: "clear",
+    lesson: "Basics"
+  },
+  {
+    name: "history",
+    description: "Show previously used commands.",
+    syntax: "history",
+    example: "history",
+    lesson: "Basics"
+  },
+  {
+    name: "ls",
+    description: "List files and folders in the current directory.",
+    syntax: "ls",
+    example: "ls",
+    lesson: "Navigation"
+  },
+  {
+    name: "ls -a",
+    description: "List all files, including hidden files that start with a dot.",
+    syntax: "ls -a",
+    example: "ls -a",
+    lesson: "Navigation"
+  },
+  {
+    name: "cd",
+    description: "Move to another directory.",
+    syntax: "cd <folder>",
+    example: "cd Documents",
+    lesson: "Navigation"
+  },
+  {
+    name: "mkdir",
+    description: "Create a new folder.",
+    syntax: "mkdir <folder-name>",
+    example: "mkdir practice",
+    lesson: "Files"
+  },
+  {
+    name: "rmdir",
+    description: "Remove an empty folder.",
+    syntax: "rmdir <folder-name>",
+    example: "rmdir emptyfolder",
+    lesson: "Files"
+  },
+  {
+    name: "touch",
+    description: "Create a new empty file.",
+    syntax: "touch <file-name>",
+    example: "touch notes.txt",
+    lesson: "Files"
+  },
+  {
+    name: "cat",
+    description: "Display the content of a file.",
+    syntax: "cat <file-name>",
+    example: "cat welcome.txt",
+    lesson: "Files"
+  },
+  {
+    name: "cp",
+    description: "Copy a file.",
+    syntax: "cp <source> <destination>",
+    example: "cp notes.txt backup.txt",
+    lesson: "Files"
+  },
+  {
+    name: "mv",
+    description: "Move or rename a file or folder.",
+    syntax: "mv <source> <destination>",
+    example: "mv notes.txt journal.txt",
+    lesson: "Files"
+  },
+  {
+    name: "rm",
+    description: "Delete a file.",
+    syntax: "rm <file-name>",
+    example: "rm backup.txt",
+    lesson: "Files"
+  },
+  {
+    name: "head",
+    description: "Show the first lines of a file.",
+    syntax: "head <file-name>",
+    example: "head welcome.txt",
+    lesson: "Search"
+  },
+  {
+    name: "tail",
+    description: "Show the last lines of a file.",
+    syntax: "tail <file-name>",
+    example: "tail welcome.txt",
+    lesson: "Search"
+  },
+  {
+    name: "grep",
+    description: "Search for text inside a file.",
+    syntax: "grep <word> <file-name>",
+    example: "grep Linux welcome.txt",
+    lesson: "Search"
+  },
+  {
+    name: "find",
+    description: "Search for a file name in the fake file system.",
+    syntax: "find <file-name>",
+    example: "find welcome.txt",
+    lesson: "Search"
+  },
+  {
+    name: "chmod",
+    description: "Change fake file permissions, such as making a file executable.",
+    syntax: "chmod +x <file-name>",
+    example: "chmod +x script.sh",
+    lesson: "Permissions"
+  },
+  {
+    name: "man",
+    description: "Show the built-in command description for a specific command.",
+    syntax: "man <command>",
+    example: "man grep",
+    lesson: "Guide"
+  }
+];
+
 const missions = [
   {
     lesson: "Lesson 1: Basics",
-    title: "Mission 1: Check your location",
+    title: "Mission 1: Show your location",
     description: "Type the command that shows your current directory.",
     hint: "Use: pwd",
     reward: 20,
@@ -46,7 +206,7 @@ const missions = [
   {
     lesson: "Lesson 1: Basics",
     title: "Mission 2: Show your username",
-    description: "Type the command that shows the current user.",
+    description: "Display the current user.",
     hint: "Use: whoami",
     reward: 20,
     validate: (raw) => raw.trim() === "whoami"
@@ -60,16 +220,32 @@ const missions = [
     validate: (raw) => raw.trim() === "date"
   },
   {
+    lesson: "Lesson 1: Basics",
+    title: "Mission 4: Print text",
+    description: "Print the word hello to the terminal.",
+    hint: "Use: echo hello",
+    reward: 20,
+    validate: (raw) => raw.trim() === "echo hello"
+  },
+  {
     lesson: "Lesson 2: Navigation",
-    title: "Mission 4: List files",
-    description: "Show the files and folders in your current directory.",
+    title: "Mission 5: List files",
+    description: "List the files and folders in your current directory.",
     hint: "Use: ls",
     reward: 20,
     validate: (raw) => raw.trim() === "ls"
   },
   {
     lesson: "Lesson 2: Navigation",
-    title: "Mission 5: Open Documents",
+    title: "Mission 6: Show hidden files",
+    description: "List all files including hidden files.",
+    hint: "Use: ls -a",
+    reward: 25,
+    validate: (raw) => raw.trim() === "ls -a"
+  },
+  {
+    lesson: "Lesson 2: Navigation",
+    title: "Mission 7: Open Documents",
     description: "Move into the Documents folder.",
     hint: "Use: cd Documents",
     reward: 25,
@@ -77,83 +253,91 @@ const missions = [
   },
   {
     lesson: "Lesson 2: Navigation",
-    title: "Mission 6: Go back one folder",
-    description: "Move back to your home folder from Documents.",
+    title: "Mission 8: Go back home",
+    description: "Move back to your home folder.",
     hint: "Use: cd ..",
     reward: 25,
     validate: (raw) => raw.trim() === "cd .." && currentPath === HOME_PATH
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 7: Create a folder",
-    description: "Create a folder named practice inside your home folder.",
+    lesson: "Lesson 3: Files",
+    title: "Mission 9: Create a folder",
+    description: "Create a folder named practice.",
     hint: "Use: mkdir practice",
     reward: 25,
     validate: (raw) => raw.trim() === "mkdir practice" && existsInCurrentDir("practice", "dir")
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 8: Enter practice",
+    lesson: "Lesson 3: Files",
+    title: "Mission 10: Enter practice",
     description: "Move into the practice folder.",
     hint: "Use: cd practice",
     reward: 25,
     validate: (raw) => raw.trim() === "cd practice" && currentPath === `${HOME_PATH}/practice`
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 9: Create a file",
-    description: "Create a file named notes.txt inside practice.",
+    lesson: "Lesson 3: Files",
+    title: "Mission 11: Create a file",
+    description: "Create a file named notes.txt.",
     hint: "Use: touch notes.txt",
     reward: 30,
     validate: (raw) => raw.trim() === "touch notes.txt" && existsInCurrentDir("notes.txt", "file")
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 10: Rename the file",
+    lesson: "Lesson 3: Files",
+    title: "Mission 12: Rename the file",
     description: "Rename notes.txt to journal.txt.",
     hint: "Use: mv notes.txt journal.txt",
     reward: 30,
     validate: (raw) => raw.trim() === "mv notes.txt journal.txt" && existsInCurrentDir("journal.txt", "file")
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 11: Copy the file",
+    lesson: "Lesson 3: Files",
+    title: "Mission 13: Copy the file",
     description: "Copy journal.txt to backup.txt.",
     hint: "Use: cp journal.txt backup.txt",
     reward: 30,
     validate: (raw) => raw.trim() === "cp journal.txt backup.txt" && existsInCurrentDir("backup.txt", "file")
   },
   {
-    lesson: "Lesson 3: Files and Folders",
-    title: "Mission 12: Remove the copy",
+    lesson: "Lesson 3: Files",
+    title: "Mission 14: Delete the copy",
     description: "Delete backup.txt.",
     hint: "Use: rm backup.txt",
     reward: 30,
     validate: (raw) => raw.trim() === "rm backup.txt" && !existsInCurrentDir("backup.txt", "file")
   },
   {
-    lesson: "Lesson 4: Search and Text",
-    title: "Mission 13: Go to Documents",
+    lesson: "Lesson 4: Search & Permissions",
+    title: "Mission 15: Go to Documents",
     description: "Move to the Documents folder.",
-    hint: "Use: cd ../Documents or cd /home/student/Documents",
+    hint: "Use: cd ../Documents",
     reward: 25,
-    validate: (raw) => currentPath === `${HOME_PATH}/Documents`
+    validate: () => currentPath === `${HOME_PATH}/Documents`
   },
   {
-    lesson: "Lesson 4: Search and Text",
-    title: "Mission 14: Read the first part of the file",
+    lesson: "Lesson 4: Search & Permissions",
+    title: "Mission 16: Read the first lines",
     description: "Show the beginning of welcome.txt.",
     hint: "Use: head welcome.txt",
     reward: 30,
     validate: (raw) => raw.trim() === "head welcome.txt"
   },
   {
-    lesson: "Lesson 4: Search and Text",
-    title: "Mission 15: Search for Linux",
-    description: "Search for the word Linux inside welcome.txt.",
+    lesson: "Lesson 4: Search & Permissions",
+    title: "Mission 17: Search for Linux",
+    description: "Search for the word Linux in welcome.txt.",
     hint: "Use: grep Linux welcome.txt",
     reward: 35,
     validate: (raw) => raw.trim() === "grep Linux welcome.txt"
+  },
+  {
+    lesson: "Lesson 4: Search & Permissions",
+    title: "Mission 18: Make script executable",
+    description: "Use chmod to make script.sh executable.",
+    hint: "Use: chmod +x script.sh",
+    reward: 35,
+    validate: (raw) => raw.trim() === "chmod +x script.sh" && hasExecutablePermission("script.sh")
   }
 ];
 
@@ -167,16 +351,35 @@ function createInitialFileSystem() {
           student: {
             type: "dir",
             children: {
+              ".bashrc": {
+                type: "file",
+                content: "export PATH=/usr/local/bin:$PATH",
+                hidden: true,
+                executable: false
+              },
+              ".secret": {
+                type: "file",
+                content: "This is a hidden practice file.",
+                hidden: true,
+                executable: false
+              },
               Documents: {
                 type: "dir",
                 children: {
                   "welcome.txt": {
                     type: "file",
-                    content: "Welcome to Linxe. Linux practice starts here.\nUse this file to test head, tail, and grep.\nKeep learning one command at a time."
+                    content: "Welcome to Linxe.\nLinux practice starts here.\nUse this file to test head, tail, and grep.",
+                    executable: false
                   },
                   "tips.txt": {
                     type: "file",
-                    content: "Tip 1: Use pwd to show your current path.\nTip 2: Use ls to list files.\nTip 3: Use cd to move between folders."
+                    content: "Tip 1: Use pwd.\nTip 2: Use ls.\nTip 3: Use cd.",
+                    executable: false
+                  },
+                  "script.sh": {
+                    type: "file",
+                    content: "#!/bin/bash\necho Running practice script",
+                    executable: false
                   }
                 }
               },
@@ -186,7 +389,8 @@ function createInitialFileSystem() {
               },
               "hello.txt": {
                 type: "file",
-                content: "Hello from Linxe."
+                content: "Hello from Linxe.",
+                executable: false
               }
             }
           }
@@ -197,6 +401,42 @@ function createInitialFileSystem() {
 }
 
 let fileSystem = createInitialFileSystem();
+
+function renderCommandGuide(filterText = "") {
+  const query = filterText.trim().toLowerCase();
+
+  const filtered = commandDocs.filter((cmd) => {
+    return (
+      cmd.name.toLowerCase().includes(query) ||
+      cmd.description.toLowerCase().includes(query) ||
+      cmd.lesson.toLowerCase().includes(query)
+    );
+  });
+
+  commandGuideGrid.innerHTML = "";
+
+  filtered.forEach((cmd) => {
+    const card = document.createElement("article");
+    card.className = "guide-card";
+    card.innerHTML = `
+      <h4>${cmd.name}</h4>
+      <div class="guide-meta">Lesson: ${cmd.lesson}</div>
+      <p>${cmd.description}</p>
+      <span class="guide-syntax">${cmd.syntax}</span>
+      <div class="guide-example">Example: ${cmd.example}</div>
+    `;
+    commandGuideGrid.appendChild(card);
+  });
+
+  if (filtered.length === 0) {
+    commandGuideGrid.innerHTML = `
+      <article class="guide-card">
+        <h4>No command found</h4>
+        <p>Try a different search term.</p>
+      </article>
+    `;
+  }
+}
 
 function printLine(text = "") {
   const line = document.createElement("div");
@@ -249,7 +489,27 @@ function updateProgressUI() {
   xpValueEl.textContent = userProgress.xp;
   levelValueEl.textContent = userProgress.level;
   missionCountEl.textContent = `${userProgress.completed.length} / ${missions.length}`;
+  updateBadges();
   saveProgress();
+}
+
+function updateBadges() {
+  const completed = userProgress.completed.length;
+
+  const badges = [
+    { name: "Basics", unlocked: completed >= 4 },
+    { name: "Navigation", unlocked: completed >= 8 },
+    { name: "Files", unlocked: completed >= 14 },
+    { name: "Search", unlocked: completed >= 18 }
+  ];
+
+  badgeList.innerHTML = "";
+  badges.forEach((badge) => {
+    const span = document.createElement("span");
+    span.className = `badge-pill ${badge.unlocked ? "unlocked" : "locked"}`;
+    span.textContent = badge.name;
+    badgeList.appendChild(span);
+  });
 }
 
 function getCurrentMission() {
@@ -338,6 +598,11 @@ function getFileInCurrentDir(name) {
   return dir.children[name] || null;
 }
 
+function hasExecutablePermission(name) {
+  const node = getFileInCurrentDir(name);
+  return !!(node && node.type === "file" && node.executable);
+}
+
 function listAllFiles(node, current, results) {
   if (node.type === "file") {
     results.push(current);
@@ -378,6 +643,21 @@ function checkMissionCompletion(rawCommand) {
   }
 }
 
+function showManual(commandName) {
+  const doc = commandDocs.find((item) => item.name === commandName);
+  if (!doc) {
+    printLine(`man: no manual entry for ${commandName}`);
+    return;
+  }
+
+  printLine(`NAME`);
+  printLine(`  ${doc.name} - ${doc.description}`);
+  printLine(`SYNTAX`);
+  printLine(`  ${doc.syntax}`);
+  printLine(`EXAMPLE`);
+  printLine(`  ${doc.example}`);
+}
+
 function processCommand(input) {
   const trimmed = input.trim();
   if (!trimmed) return;
@@ -394,21 +674,10 @@ function processCommand(input) {
   switch (command) {
     case "help":
       printLine("Available commands:");
-      printLine("help, ls, pwd, whoami, date, echo, clear");
-      printLine("cd, mkdir, touch, cat, rm, cp, mv, rmdir");
-      printLine("head, tail, grep, find, history");
+      printLine("help, pwd, whoami, date, echo, clear, history");
+      printLine("ls, ls -a, cd, mkdir, rmdir, touch, cat, cp, mv, rm");
+      printLine("head, tail, grep, find, chmod, man");
       break;
-
-    case "ls": {
-      const dir = getCurrentDirectoryNode();
-      if (!dir || dir.type !== "dir") {
-        printLine("Error: current directory not found.");
-      } else {
-        const names = Object.keys(dir.children);
-        printLine(names.length ? names.join("  ") : "(empty)");
-      }
-      break;
-    }
 
     case "pwd":
       printLine(currentPath);
@@ -429,6 +698,28 @@ function processCommand(input) {
     case "clear":
       terminalOutput.innerHTML = "";
       break;
+
+    case "history":
+      commandHistory.forEach((cmd, index) => {
+        printLine(`${index + 1}  ${cmd}`);
+      });
+      break;
+
+    case "ls": {
+      const dir = getCurrentDirectoryNode();
+      if (!dir || dir.type !== "dir") {
+        printLine("Error: current directory not found.");
+        break;
+      }
+
+      const showAll = args[0] === "-a";
+      const names = Object.entries(dir.children)
+        .filter(([name, node]) => showAll || !node.hidden)
+        .map(([name]) => name);
+
+      printLine(names.length ? names.join("  ") : "(empty)");
+      break;
+    }
 
     case "cd": {
       const target = args.join(" ").trim() || "~";
@@ -493,7 +784,7 @@ function processCommand(input) {
 
       const dir = getCurrentDirectoryNode();
       if (!dir.children[name]) {
-        dir.children[name] = { type: "file", content: "" };
+        dir.children[name] = { type: "file", content: "", executable: false };
       }
       break;
     }
@@ -513,93 +804,7 @@ function processCommand(input) {
         printLine(`cat: ${name}: Is a directory`);
       } else {
         const lines = node.content ? node.content.split("\n") : ["(empty file)"];
-        lines.forEach(line => printLine(line));
-      }
-      break;
-    }
-
-    case "head": {
-      const name = args.join(" ").trim();
-      const node = getFileInCurrentDir(name);
-      if (!node || node.type !== "file") {
-        printLine(`head: cannot open '${name}'`);
-      } else {
-        node.content.split("\n").slice(0, 2).forEach(line => printLine(line));
-      }
-      break;
-    }
-
-    case "tail": {
-      const name = args.join(" ").trim();
-      const node = getFileInCurrentDir(name);
-      if (!node || node.type !== "file") {
-        printLine(`tail: cannot open '${name}'`);
-      } else {
-        node.content.split("\n").slice(-2).forEach(line => printLine(line));
-      }
-      break;
-    }
-
-    case "grep": {
-      const searchTerm = args[0];
-      const fileName = args[1];
-      if (!searchTerm || !fileName) {
-        printLine("grep: usage grep <text> <file>");
-        break;
-      }
-
-      const node = getFileInCurrentDir(fileName);
-      if (!node || node.type !== "file") {
-        printLine(`grep: ${fileName}: No such file`);
-      } else {
-        const matched = node.content
-          .split("\n")
-          .filter(line => line.toLowerCase().includes(searchTerm.toLowerCase()));
-
-        if (matched.length === 0) {
-          printLine("(no matches)");
-        } else {
-          matched.forEach(line => printLine(line));
-        }
-      }
-      break;
-    }
-
-    case "find": {
-      const name = args[0];
-      if (!name) {
-        printLine("find: usage find <name>");
-        break;
-      }
-
-      const all = [];
-      listAllFiles(fileSystem, "/", all);
-      const matches = all.filter(path => path.endsWith(`/${name}`) || path === `/${name}`);
-
-      if (matches.length === 0) {
-        printLine("(no matches)");
-      } else {
-        matches.forEach(match => printLine(match));
-      }
-      break;
-    }
-
-    case "rm": {
-      const name = args.join(" ").trim();
-      if (!name) {
-        printLine("rm: missing file name");
-        break;
-      }
-
-      const dir = getCurrentDirectoryNode();
-      const node = dir.children[name];
-
-      if (!node) {
-        printLine(`rm: cannot remove '${name}': No such file`);
-      } else if (node.type !== "file") {
-        printLine(`rm: cannot remove '${name}': Is a directory`);
-      } else {
-        delete dir.children[name];
+        lines.forEach((line) => printLine(line));
       }
       break;
     }
@@ -623,7 +828,8 @@ function processCommand(input) {
       } else {
         dir.children[destination] = {
           type: "file",
-          content: sourceNode.content
+          content: sourceNode.content,
+          executable: !!sourceNode.executable
         };
       }
       break;
@@ -650,10 +856,124 @@ function processCommand(input) {
       break;
     }
 
-    case "history": {
-      commandHistory.forEach((cmd, index) => {
-        printLine(`${index + 1}  ${cmd}`);
-      });
+    case "rm": {
+      const name = args.join(" ").trim();
+      if (!name) {
+        printLine("rm: missing file name");
+        break;
+      }
+
+      const dir = getCurrentDirectoryNode();
+      const node = dir.children[name];
+
+      if (!node) {
+        printLine(`rm: cannot remove '${name}': No such file`);
+      } else if (node.type !== "file") {
+        printLine(`rm: cannot remove '${name}': Is a directory`);
+      } else {
+        delete dir.children[name];
+      }
+      break;
+    }
+
+    case "head": {
+      const name = args.join(" ").trim();
+      const node = getFileInCurrentDir(name);
+      if (!node || node.type !== "file") {
+        printLine(`head: cannot open '${name}'`);
+      } else {
+        node.content.split("\n").slice(0, 2).forEach((line) => printLine(line));
+      }
+      break;
+    }
+
+    case "tail": {
+      const name = args.join(" ").trim();
+      const node = getFileInCurrentDir(name);
+      if (!node || node.type !== "file") {
+        printLine(`tail: cannot open '${name}'`);
+      } else {
+        node.content.split("\n").slice(-2).forEach((line) => printLine(line));
+      }
+      break;
+    }
+
+    case "grep": {
+      const searchTerm = args[0];
+      const fileName = args[1];
+      if (!searchTerm || !fileName) {
+        printLine("grep: usage grep <text> <file>");
+        break;
+      }
+
+      const node = getFileInCurrentDir(fileName);
+      if (!node || node.type !== "file") {
+        printLine(`grep: ${fileName}: No such file`);
+      } else {
+        const matched = node.content
+          .split("\n")
+          .filter((line) => line.toLowerCase().includes(searchTerm.toLowerCase()));
+
+        if (matched.length === 0) {
+          printLine("(no matches)");
+        } else {
+          matched.forEach((line) => printLine(line));
+        }
+      }
+      break;
+    }
+
+    case "find": {
+      const name = args[0];
+      if (!name) {
+        printLine("find: usage find <name>");
+        break;
+      }
+
+      const all = [];
+      listAllFiles(fileSystem, "/", all);
+      const matches = all.filter((path) => path.endsWith(`/${name}`) || path === `/${name}`);
+
+      if (matches.length === 0) {
+        printLine("(no matches)");
+      } else {
+        matches.forEach((match) => printLine(match));
+      }
+      break;
+    }
+
+    case "chmod": {
+      const mode = args[0];
+      const fileName = args[1];
+
+      if (!mode || !fileName) {
+        printLine("chmod: usage chmod +x <file>");
+        break;
+      }
+
+      const node = getFileInCurrentDir(fileName);
+
+      if (!node || node.type !== "file") {
+        printLine(`chmod: cannot access '${fileName}'`);
+      } else if (mode === "+x") {
+        node.executable = true;
+        printLine(`Permissions updated for ${fileName}`);
+      } else if (mode === "-x") {
+        node.executable = false;
+        printLine(`Permissions updated for ${fileName}`);
+      } else {
+        printLine("chmod: only +x and -x are supported in this lab");
+      }
+      break;
+    }
+
+    case "man": {
+      const target = args[0];
+      if (!target) {
+        printLine("man: usage man <command>");
+      } else {
+        showManual(target);
+      }
       break;
     }
 
@@ -667,9 +987,10 @@ function processCommand(input) {
 
 function initTerminal() {
   terminalOutput.innerHTML = "";
-  printLine("Welcome to Linxe V5");
+  printLine("Welcome to Linxe V6");
   printLine("Learn Linux through interactive missions.");
   printLine("Type help to see available commands.");
+  printLine("Type man <command> for built-in command help.");
   printLine("Use arrow up/down for command history.");
   printLine("--------------------------------------------------");
   updatePrompt();
@@ -756,7 +1077,12 @@ nextMissionBtn.addEventListener("click", goNextMission);
 hintBtn.addEventListener("click", showHint);
 resetProgressBtn.addEventListener("click", resetAllProgress);
 
+commandSearch.addEventListener("input", (event) => {
+  renderCommandGuide(event.target.value);
+});
+
 loadProgress();
 updateProgressUI();
 updateMissionUI();
+renderCommandGuide();
 initTerminal();
