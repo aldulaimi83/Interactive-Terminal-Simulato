@@ -155,7 +155,6 @@ a {
 .stat-card,
 .feature-card,
 .track-card,
-.how-card,
 .about-card,
 .mission-card,
 .preview-window,
@@ -169,7 +168,6 @@ a {
 .stat-card,
 .feature-card,
 .track-card,
-.how-card,
 .about-card,
 .mission-card {
   padding: 22px;
@@ -183,7 +181,6 @@ a {
 .stat-card span,
 .feature-card p,
 .track-card p,
-.how-card p,
 .about-card p,
 .mission-card p,
 .small,
@@ -257,10 +254,15 @@ a {
 }
 
 .feature-grid,
-.track-grid {
+.track-grid,
+.about-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+}
+
+.about-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
 .track-tag {
@@ -271,45 +273,8 @@ a {
   margin-bottom: 12px;
 }
 
-.track-tag.muted {
-  background: rgba(91, 167, 255, 0.08);
-  border-color: rgba(91, 167, 255, 0.16);
-  color: #d9eaff;
-}
-
 .track-card.active {
   border-color: rgba(57, 255, 20, 0.25);
-}
-
-.how-grid,
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.step {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-top: 16px;
-}
-
-.step-number {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: rgba(91, 167, 255, 0.12);
-  border: 1px solid rgba(91, 167, 255, 0.22);
-  color: #dcecff;
-  font-weight: bold;
-  flex-shrink: 0;
-}
-
-.step h4 {
-  margin: 0 0 8px;
 }
 
 .workspace {
@@ -468,7 +433,6 @@ button.danger {
   .workspace,
   .feature-grid,
   .track-grid,
-  .how-grid,
   .about-grid {
     grid-template-columns: 1fr;
   }
