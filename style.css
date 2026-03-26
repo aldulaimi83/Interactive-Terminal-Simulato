@@ -158,7 +158,8 @@ a {
 .about-card,
 .mission-card,
 .preview-window,
-.terminal-panel {
+.terminal-panel,
+.guide-card {
   background: rgba(15, 24, 40, 0.88);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -169,7 +170,8 @@ a {
 .feature-card,
 .track-card,
 .about-card,
-.mission-card {
+.mission-card,
+.guide-card {
   padding: 22px;
 }
 
@@ -183,8 +185,11 @@ a {
 .track-card p,
 .about-card p,
 .mission-card p,
+.guide-card p,
 .small,
-.next-list li {
+.next-list li,
+.guide-meta,
+.guide-example {
   color: var(--muted);
   line-height: 1.75;
 }
@@ -254,15 +259,16 @@ a {
 }
 
 .feature-grid,
-.track-grid,
-.about-grid {
+.track-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
 
 .about-grid {
+  display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 18px;
 }
 
 .track-tag {
@@ -350,6 +356,76 @@ a {
   border-left: 4px solid var(--green);
 }
 
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge-pill {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: bold;
+}
+
+.badge-pill.locked {
+  background: #24324d;
+  color: #9fb0c7;
+}
+
+.badge-pill.unlocked {
+  background: rgba(57, 255, 20, 0.14);
+  color: #d8ffd5;
+  border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.guide-search-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.guide-search {
+  width: min(680px, 100%);
+  border: 1px solid var(--border);
+  background: rgba(15, 24, 40, 0.88);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.guide-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.guide-syntax {
+  font-family: Consolas, Monaco, monospace;
+  background: #0d1117;
+  color: #d9e6f7;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+  display: block;
+}
+
+.guide-example {
+  font-family: Consolas, Monaco, monospace;
+  background: rgba(255,255,255,0.03);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
 .next-list {
   margin: 0;
   padding-left: 20px;
@@ -433,7 +509,8 @@ button.danger {
   .workspace,
   .feature-grid,
   .track-grid,
-  .about-grid {
+  .about-grid,
+  .guide-grid {
     grid-template-columns: 1fr;
   }
 
