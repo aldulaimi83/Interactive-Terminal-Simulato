@@ -137,7 +137,9 @@ a {
   max-width: 700px;
 }
 
-.hero-actions {
+.hero-actions,
+.challenge-actions,
+.quiz-actions {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -159,7 +161,9 @@ a {
 .mission-card,
 .preview-window,
 .terminal-panel,
-.guide-card {
+.guide-card,
+.challenge-card,
+.quiz-card {
   background: rgba(15, 24, 40, 0.88);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -171,7 +175,9 @@ a {
 .track-card,
 .about-card,
 .mission-card,
-.guide-card {
+.guide-card,
+.challenge-card,
+.quiz-card {
   padding: 22px;
 }
 
@@ -186,10 +192,13 @@ a {
 .about-card p,
 .mission-card p,
 .guide-card p,
+.challenge-card p,
+.quiz-card p,
 .small,
 .next-list li,
 .guide-meta,
-.guide-example {
+.guide-example,
+.quiz-status {
   color: var(--muted);
   line-height: 1.75;
 }
@@ -265,10 +274,15 @@ a {
   gap: 18px;
 }
 
-.about-grid {
+.about-grid,
+.challenge-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+}
+
+.about-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
 .track-tag {
@@ -279,8 +293,18 @@ a {
   margin-bottom: 12px;
 }
 
+.track-tag.muted {
+  background: rgba(91, 167, 255, 0.08);
+  border-color: rgba(91, 167, 255, 0.16);
+  color: #d9eaff;
+}
+
 .track-card.active {
   border-color: rgba(57, 255, 20, 0.25);
+}
+
+.track-card.locked-track {
+  opacity: 0.72;
 }
 
 .workspace {
@@ -380,6 +404,37 @@ a {
   border: 1px solid rgba(57, 255, 20, 0.2);
 }
 
+.big-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.quiz-option.correct {
+  background: rgba(57, 255, 20, 0.14);
+  border-color: rgba(57, 255, 20, 0.22);
+}
+
+.quiz-option.wrong {
+  background: rgba(255, 99, 99, 0.14);
+  border-color: rgba(255, 99, 99, 0.22);
+}
+
 .guide-search-wrap {
   display: flex;
   justify-content: center;
@@ -403,7 +458,9 @@ a {
   gap: 18px;
 }
 
-.guide-card h4 {
+.guide-card h4,
+.challenge-card h4,
+.quiz-card h4 {
   margin-top: 0;
   margin-bottom: 8px;
 }
@@ -484,7 +541,7 @@ button:hover {
   opacity: 0.96;
 }
 
-button:not(.secondary):not(.danger) {
+button:not(.secondary):not(.danger):not(.quiz-option) {
   background: var(--green);
   color: #061108;
 }
@@ -510,7 +567,8 @@ button.danger {
   .feature-grid,
   .track-grid,
   .about-grid,
-  .guide-grid {
+  .guide-grid,
+  .challenge-grid {
     grid-template-columns: 1fr;
   }
 
