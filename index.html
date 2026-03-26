@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linxe — Learn Linux Through Interactive Missions</title>
+  <title>Linxe V6 — Learn Linux Through Interactive Missions</title>
   <meta
     name="description"
-    content="Linxe is an interactive Linux learning website where beginners practice commands through terminal missions."
+    content="Linxe is an interactive Linux learning website where beginners practice commands through missions, lessons, and command guides."
   />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -25,7 +25,8 @@
         <a href="#features">Features</a>
         <a href="#tracks">Tracks</a>
         <a href="#lab">Lab</a>
-        <a href="#about">Why I Built It</a>
+        <a href="#command-guide">Command Guide</a>
+        <a href="#about">About</a>
       </nav>
 
       <button id="openLabTopBtn" class="secondary">Open Lab</button>
@@ -39,27 +40,27 @@
           <div class="badge">Interactive Linux Learning Platform</div>
           <h2>Learn Linux Through Interactive Terminal Missions</h2>
           <p class="hero-text">
-            Linxe helps beginners learn Linux by practicing commands inside a terminal-style lab,
-            completing missions, and building confidence step by step.
+            Linxe helps beginners learn Linux with hands-on terminal practice,
+            guided lessons, command explanations, and mission-based learning.
           </p>
 
           <div class="hero-actions">
             <button id="startHeroBtn">Start Practicing</button>
-            <a href="#lab" class="text-link">See the Lab</a>
+            <a href="#command-guide" class="text-link">View Command Guide</a>
           </div>
 
           <div class="hero-stats">
             <div class="stat-card">
               <strong>More Commands</strong>
-              <span>Practice real Linux basics beyond only ls and cd</span>
+              <span>Practice Linux basics, files, search, hidden files, and permissions</span>
             </div>
             <div class="stat-card">
-              <strong>More Missions</strong>
-              <span>Guided learning path with 15 tasks</span>
+              <strong>Lesson Flow</strong>
+              <span>Structured missions grouped into lessons</span>
             </div>
             <div class="stat-card">
-              <strong>Hands-On</strong>
-              <span>Learn by doing, not just reading</span>
+              <strong>Built-In Guide</strong>
+              <span>Mini man-style command explanations for each command</span>
             </div>
           </div>
         </div>
@@ -73,13 +74,13 @@
               <span class="window-title">linxe-preview</span>
             </div>
             <div class="preview-body">
-              <div><span class="prompt">student@linxe:~$</span> pwd</div>
-              <div>/home/student</div>
-              <div><span class="prompt">student@linxe:~$</span> whoami</div>
-              <div>student</div>
-              <div><span class="prompt">student@linxe:~/Documents$</span> grep Linux welcome.txt</div>
-              <div>Welcome to Linxe. Linux practice starts here.</div>
-              <div class="success">Mission complete! +30 XP</div>
+              <div><span class="prompt">student@linxe:~$</span> ls -a</div>
+              <div>.bashrc  .secret  Documents  Downloads  hello.txt</div>
+              <div><span class="prompt">student@linxe:~/Documents$</span> chmod +x script.sh</div>
+              <div>Permissions updated for script.sh</div>
+              <div><span class="prompt">student@linxe:~/Documents$</span> man grep</div>
+              <div>Search for text in a file</div>
+              <div class="success">Mission complete! +35 XP</div>
             </div>
           </div>
         </div>
@@ -90,28 +91,29 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Core Features</span>
-          <h3>What makes Linxe useful</h3>
+          <h3>What makes Linxe better now</h3>
           <p>
-            Linxe is built to make Linux learning practical, structured, and less intimidating.
+            Linxe is becoming a real learning product with guided labs, lessons,
+            and built-in command help.
           </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
             <h4>Interactive Terminal</h4>
-            <p>Practice commands in a terminal-style environment instead of passively reading tutorials.</p>
+            <p>Practice commands in a browser terminal with realistic feedback.</p>
           </article>
           <article class="feature-card">
-            <h4>Mission-Based Learning</h4>
-            <p>Every lesson gives you one clear task so you always know what to do next.</p>
+            <h4>Lesson-Based Missions</h4>
+            <p>Progress through structured tasks instead of random commands.</p>
           </article>
           <article class="feature-card">
-            <h4>Progress Tracking</h4>
-            <p>Earn XP, level up, and track completed missions as you improve.</p>
+            <h4>Command Guide</h4>
+            <p>Each command has a mini explanation, syntax, and example.</p>
           </article>
           <article class="feature-card">
-            <h4>More Linux Basics</h4>
-            <p>Now includes file management, search commands, and command history.</p>
+            <h4>Progress and Badges</h4>
+            <p>Track XP, level, missions, and unlocked learning stages.</p>
           </article>
         </div>
       </div>
@@ -121,30 +123,33 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Learning Tracks</span>
-          <h3>Start simple, then build real skills</h3>
-          <p>These tracks turn Linxe into a stronger Linux training product.</p>
+          <h3>Structured beginner path</h3>
+          <p>Linxe V6 teaches Linux in a cleaner, more complete way.</p>
         </div>
 
         <div class="track-grid">
           <article class="track-card active">
-            <div class="track-tag">Available Now</div>
-            <h4>Basics</h4>
-            <p>pwd, ls, whoami, date, clear, echo, help.</p>
+            <div class="track-tag">Unlocked</div>
+            <h4>Lesson 1 — Basics</h4>
+            <p>pwd, whoami, date, echo, clear, history</p>
           </article>
+
           <article class="track-card active">
-            <div class="track-tag">Available Now</div>
-            <h4>Navigation</h4>
-            <p>cd, cd .., relative and absolute paths.</p>
+            <div class="track-tag">Unlocked</div>
+            <h4>Lesson 2 — Navigation</h4>
+            <p>ls, ls -a, cd, cd .., absolute and relative paths</p>
           </article>
+
           <article class="track-card active">
-            <div class="track-tag">Available Now</div>
-            <h4>Files & Folders</h4>
-            <p>mkdir, touch, cat, cp, mv, rm, rmdir.</p>
+            <div class="track-tag">Unlocked</div>
+            <h4>Lesson 3 — Files</h4>
+            <p>touch, cat, cp, mv, rm, mkdir, rmdir</p>
           </article>
+
           <article class="track-card active">
-            <div class="track-tag">Available Now</div>
-            <h4>Search & Text</h4>
-            <p>grep, find, head, tail, history.</p>
+            <div class="track-tag">Unlocked</div>
+            <h4>Lesson 4 — Search & Permissions</h4>
+            <p>head, tail, grep, find, chmod, man</p>
           </article>
         </div>
       </div>
@@ -155,7 +160,7 @@
         <div class="section-heading">
           <span class="eyebrow">Interactive Lab</span>
           <h3>Practice Linux commands here</h3>
-          <p>This lab works directly in the browser with guided missions and progress tracking.</p>
+          <p>This lab works in the browser and now includes a command guide and more missions.</p>
         </div>
 
         <div class="workspace">
@@ -182,12 +187,12 @@
               <h3>Your Progress</h3>
               <div class="progress-stat"><span>XP</span><strong id="xpValue">0</strong></div>
               <div class="progress-stat"><span>Level</span><strong id="levelValue">1</strong></div>
-              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 15</strong></div>
+              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 18</strong></div>
             </div>
 
             <div class="mission-card">
               <h3>Current Lesson</h3>
-              <p id="lessonTitle">Lesson 1: Basics</p>
+              <p id="lessonTitle">Loading...</p>
             </div>
 
             <div class="mission-card">
@@ -212,32 +217,60 @@
             </div>
 
             <div class="mission-card">
+              <h3>Badges</h3>
+              <div id="badgeList" class="badge-list">
+                <span class="badge-pill locked">Basics</span>
+                <span class="badge-pill locked">Navigation</span>
+                <span class="badge-pill locked">Files</span>
+                <span class="badge-pill locked">Search</span>
+              </div>
+            </div>
+
+            <div class="mission-card">
               <h3>Controls</h3>
               <button id="focusBtn">Focus Terminal</button>
               <button id="nextMissionBtn" class="secondary">Next Mission</button>
               <button id="resetLabBtn" class="secondary">Reset Lab</button>
               <button id="resetProgressBtn" class="danger">Reset Progress</button>
             </div>
-
-            <div class="mission-card">
-              <h3>Commands</h3>
-              <p class="small">
-                help, ls, pwd, whoami, date, echo, clear, cd, mkdir, touch, cat, rm, cp, mv, rmdir, head, tail, grep, find, history
-              </p>
-            </div>
           </aside>
         </div>
       </div>
     </section>
 
-    <section id="about" class="section">
+    <section id="command-guide" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Command Guide</span>
+          <h3>Mini man page for each command</h3>
+          <p>
+            This section gives learners quick command descriptions, syntax, and examples.
+          </p>
+        </div>
+
+        <div class="guide-search-wrap">
+          <input
+            id="commandSearch"
+            class="guide-search"
+            type="text"
+            placeholder="Search command guide... e.g. grep, chmod, ls"
+          />
+        </div>
+
+        <div id="commandGuideGrid" class="guide-grid">
+          <!-- Filled by script -->
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section alt-section">
       <div class="container about-grid">
         <div class="about-card">
           <span class="eyebrow">Why I Built This</span>
           <h3>A portfolio project with product potential</h3>
           <p>
-            I built Linxe as a hands-on Linux learning concept that is simple enough for beginners
-            but structured enough to feel like a real product.
+            I built Linxe to turn Linux learning into something more hands-on,
+            more visual, and easier for beginners to use.
           </p>
         </div>
 
@@ -245,11 +278,11 @@
           <span class="eyebrow">Next Steps</span>
           <h3>Where I want to take it</h3>
           <ul class="next-list">
-            <li>Add permissions and chmod lessons</li>
-            <li>Add lesson locking and badges</li>
+            <li>Add nano-style editing mode</li>
             <li>Add quizzes and challenge mode</li>
-            <li>Add better terminal autocomplete</li>
-            <li>Turn it into a stronger portfolio product</li>
+            <li>Add lesson locking by progress</li>
+            <li>Add more realistic scripting tasks</li>
+            <li>Turn it into a stronger education product</li>
           </ul>
         </div>
       </div>
@@ -264,7 +297,7 @@
       </div>
       <div class="footer-links">
         <a href="#lab">Try the Lab</a>
-        <a href="#about">About the Project</a>
+        <a href="#command-guide">Command Guide</a>
       </div>
     </div>
   </footer>
