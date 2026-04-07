@@ -9,14 +9,41 @@
     content="Linxe is an interactive Linux learning website where beginners practice commands through missions, lessons, quizzes, and a built-in command guide."
   />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="youooo_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap" rel="stylesheet" />
+  <meta property="og:title" content="Linxe — Learn Linux Through Interactive Missions" />
+  <meta property="og:description" content="40 missions, 8 lessons, browser terminal, quizzes and challenges. Free Linux learning by Youooo." />
+  <meta property="og:url" content="https://linux.youooo.com" />
+  <meta property="og:type" content="website" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE9RWL5WBY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SE9RWL5WBY');
+  </script>
+  <style>
+    #splash{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease}
+    #splash.fade-out{opacity:0;pointer-events:none}
+    #splash img{width:min(420px,80vw);animation:splashPulse 1.2s ease-in-out infinite alternate}
+    @keyframes splashPulse{from{transform:scale(1);opacity:.9}to{transform:scale(1.04);opacity:1}}
+  </style>
 </head>
 <body>
+
+<!-- ════════════════════ SPLASH ════════════════════ -->
+<div id="splash"><img src="youooo_logo.png" alt="Youooo" /></div>
+<script>(function(){var s=document.getElementById('splash');setTimeout(function(){s.classList.add('fade-out');setTimeout(function(){s.style.display='none'},800)},5000)})()</script>
+
   <header class="site-header">
     <div class="container nav">
       <div class="brand">
-        <div class="brand-icon">🐧</div>
+        <img src="youooo_logo.png" alt="Youooo" style="height:48px;width:auto;flex-shrink:0;" />
         <div>
-          <h1>Linxe</h1>
+          <h1 style="font-family:'Rajdhani',sans-serif;letter-spacing:2px;">Linxe</h1>
           <p>Learn Linux by doing</p>
         </div>
       </div>
@@ -189,7 +216,7 @@
               <h3>Your Progress</h3>
               <div class="progress-stat"><span>XP</span><strong id="xpValue">0</strong></div>
               <div class="progress-stat"><span>Level</span><strong id="levelValue">1</strong></div>
-              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 20</strong></div>
+              <div class="progress-stat"><span>Missions</span><strong id="missionCount">0 / 40</strong></div>
             </div>
 
             <div class="mission-card">
@@ -342,10 +369,13 @@
   <footer class="site-footer">
     <div class="container footer-wrap">
       <div>
-        <strong>Linxe</strong>
-        <p>Interactive Linux learning project by Ahmed Aldulaimi</p>
+        <img src="youooo_logo.png" alt="Youooo" style="height:30px;width:auto;margin-bottom:6px;display:block;" />
+        <p>linux.youooo.com — Part of the <strong>Youooo</strong> family</p>
       </div>
       <div class="footer-links">
+        <a href="https://youooo.com">youooo.com</a>
+        <a href="https://resume.youooo.com">Resume</a>
+        <a href="https://game.youooo.com">Games</a>
         <a href="#lab">Try the Lab</a>
         <a href="#challenge">Challenge Mode</a>
         <a href="#command-guide">Command Guide</a>

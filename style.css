@@ -561,6 +561,62 @@ button.danger {
   font-weight: bold;
 }
 
+/* ── Copy button row on guide cards ── */
+.guide-example-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.guide-example-row .guide-example {
+  margin-top: 0;
+  flex: 1;
+}
+
+.copy-cmd-btn {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Track grid — 4 cols wraps to 2 rows for 8 tracks ── */
+.track-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ── Animated terminal cursor in hero ── */
+.typing-cmd::after {
+  content: "▋";
+  animation: blink 0.8s step-end infinite;
+  color: #39ff14;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ── Share button ── */
+.share-btn {
+  background: #22314b;
+  color: var(--text);
+  border: 1px solid rgba(91,167,255,0.25);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
 @media (max-width: 1100px) {
   .hero-grid,
   .workspace,
